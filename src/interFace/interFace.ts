@@ -150,6 +150,30 @@ export interface PricingPlanItemType {
 }
 
 
+//product type
+export interface Product {
+  id: number;
+  attributes: {
+      productName: string;
+      description: string;
+      images: {
+        data: {
+          id: number;
+          attributes: {
+            url: string;
+          }
+        }[]
+      }
+      category: {
+        data: {
+          attributes: {
+            slug: string;
+            nameCategory: string;
+          }
+        }
+      }
+  };
+}
 
 
 
