@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from 'next/image';
 import React, { useState } from 'react';
 import shape1 from '../../../../public/assets/img/shape/shape1.png';
@@ -8,44 +8,80 @@ import shape4 from '../../../../public/assets/img/shape/shape4.png';
 import shape5 from '../../../../public/assets/img/shape/1.png';
 import Link from 'next/link';
 import products_data from '@/data/products-data';
-import product_category from '@/data/product-category-data';
-import { getRating } from "../../../hooks/ratings-hooks"
+import { getRating } from "../../../hooks/ratings-hooks";
 import { useDispatch } from 'react-redux';
 import { productsType } from '@/interFace/interFace';
 import { cart_product } from '@/redux/slices/cartSlice';
 import { wishlist_product } from '@/redux/slices/wishlist-slice';
 import ProductModal from '@/components/common/ProductModel';
+import { responseType } from '../../../../types/response';
+import { Category } from '@/interFace/interFace';  
+import { Product } from '@/interFace/interFace';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
+import { useParams } from 'next/navigation';
+import { useGetCategory } from '../../../../api/getCategory';
+import { useGetProductsCategory } from '../../../../api/getCategoryProducts';
 
 const ProductSection = () => {
-    const [activeCategory, setActiveCategory] = useState('');
+    const [activeCategorySlug, setActiveCategorySlug] = useState<string>('aceites-naturales');
     const [modaldata, setModalData] = useState<any>({});
-    const filterData = products_data.slice(0, 4).filter((item) => item.category === activeCategory);
     const dispatch = useDispatch();
+
     const handleAddToCart = (product: productsType) => {
         dispatch(cart_product(product));
     };
 
+    // Obtener los datos de la categoría
+    const { loading: categoryLoading, result: categories = [], error: categoryError }: responseType = useGetCategory();
 
+    // Obtener los datos de los productos filtrados por categoría
+    const { Result: products = [], Loading: productsLoading, Error: productsError } = useGetProductsCategory(activeCategorySlug);
+    console.log(products);
+
+    // Mostrar indicadores de carga o errores
+    if (categoryLoading || productsLoading) {
+        return <p className="features-text">Cargando...</p>;
+    }
+
+    if (categoryError || productsError) {
+        return <p className="features-text">Error al cargar los datos...</p>;
+    }
+
+    if (!categories) {
+        return <p className="features-text">No se encuentran las categorías...</p>;
+    }
+
+    if (!products && activeCategorySlug !== "") {
+        return <p className="features-text">No se encuentran los productos...</p>;
+    }    
     return (
         <>
             <div className="product-area pos-relative pt-110 pb-85 fix">
                 <div className="shape spahe1 bounce-animate">
-                    <Image src={shape1} style={{ width: "auto", height: "auto" }} alt="image not found" />
+                    <Image src={shape1} alt="shape" />
                 </div>
-                <div className="shape spahe2 bounce-animate"><Image src={shape2} style={{ width: "auto", height: "auto" }} alt="image not found" /></div>
-                <div className="shape spahe3 bounce-animate"><Image src={shape3} style={{ width: "auto", height: "auto" }} alt="image not found" /></div>
-                <div className="shape spahe4 bounce-animate"><Image src={shape4} style={{ width: "auto", height: "auto" }} alt="image not found" /></div>
+                <div className="shape spahe2 bounce-animate">
+                    <Image src={shape2} alt="shape" />
+                </div>
+                <div className="shape spahe3 bounce-animate">
+                    <Image src={shape3} alt="shape" />
+                </div>
+                <div className="shape spahe4 bounce-animate">
+                    <Image src={shape4} alt="shape" />
+                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-6 col-lg-6 offset-lg-3 offset-xl-3">
                             <div className="section-title text-center section-circle mb-70">
                                 <div className="section-img">
-                                    <Image src={shape5} style={{ width: "auto", height: "auto" }} alt="image not found" />
+                                    <Image src={shape5} alt="shape" />
                                 </div>
-                                <h1>Our Product</h1>
+                                <h1>Nuestros productos</h1>
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmotempor incididunt ut
-                                    labore et dolore magna aliqua enim minim veniam
+                                    En esta sección encontrarás los productos de nuestra tienda por categorías.
                                 </p>
                             </div>
                         </div>
@@ -53,60 +89,57 @@ const ProductSection = () => {
                     <div className="row">
                         <div className="col-xl-12">
                             <ul className="nav product-tab justify-content-center mb-75">
-                                <li onClick={() => setActiveCategory("")} className={activeCategory === "" ? "active nav-item" : ""}>
-                                    <div className="product-tab-content text-center">
-                                        <div className="product-tab-img">
-                                            <i className="flaticon-diet"></i>
-                                        </div>
-                                        <h4>Vegetables</h4>
-                                    </div>
-                                </li>
                                 {
-                                    product_category.map((item) => (
-                                        <li key={item.id} onClick={() => setActiveCategory(item.category)} className={activeCategory === item.category ? 'active nav-item' : ''}>
+                                    categories.map((item: Category) => (
+                                        <li 
+                                            key={item.id} 
+                                            onClick={() => setActiveCategorySlug(item.attributes.slug)}
+                                            className={activeCategorySlug === item.attributes.slug ? 'active nav-item' : ''}
+                                        >
                                             <div className="product-tab-content text-center">
                                                 <div className="product-tab-img">
-                                                    <i className={item.icon}></i>
+                                                    {item.attributes.image?.data && (
+                                                        <Image
+                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.image.data.attributes.url}`}
+                                                            alt={item.attributes.nameCategory}
+                                                            width={50}
+                                                            height={50}
+                                                            className="category-image"
+                                                        />
+                                                    )}
                                                 </div>
-                                                <h4>{item.category}</h4>
+                                                <h4>{item.attributes.nameCategory}</h4>
                                             </div>
                                         </li>
                                     ))
                                 }
                             </ul>
                             <div className="row">
-                                {activeCategory === "" ?
+                                {/* Mostrar productos por categoría seleccionada */}
+                                {activeCategorySlug === "" ?
                                     <>
                                         {products_data.slice(0, 4).map((item) => (
                                             <div className="col-xl-3 col-lg-3 col-md-6" key={item.id}>
                                                 <div className="product-wrapper text-center mb-30">
                                                     <div className="product-img">
-                                                        <Link href="/shop-details" >
-                                                            <Image src={item.image} style={{ width: "100%", height: "auto" }} alt="image not found" />
+                                                        <Link href="/shop-details">
+                                                            <Image src={item.image} alt="product image" width={200} height={200} />
                                                         </Link>
 
                                                         <div className="product-action">
-                                                            <button onClick={() => handleAddToCart(item)}><i className='fas fa-shopping-cart'></i></button>
+                                                            <button onClick={() => handleAddToCart(item)}><i className="fas fa-shopping-cart"></i></button>
                                                             <button onClick={() => setModalData(item)}>
-                                                                <span
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#productModalId"
-                                                                >
-                                                                    <i className='fas fa-eye'></i>
+                                                                <span data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                                    <i className="fas fa-eye"></i>
                                                                 </span>
-
                                                             </button>
-                                                            <button onClick={() => dispatch(wishlist_product(item))}><i className='fas fa-heart'></i></button>
+                                                            <button onClick={() => dispatch(wishlist_product(item))}><i className="fas fa-heart"></i></button>
                                                         </div>
                                                     </div>
                                                     <div className="product-text">
                                                         <h4><Link href={`/shop-details/${item.id}`}>{item.title}</Link></h4>
-                                                        <div className="pro-rating">
-                                                            {getRating(item.rating)}
-                                                        </div>
-                                                        <div className="pro-price">
-                                                            <span>${item.price}</span>
-                                                        </div>
+                                                        <div className="pro-rating">{getRating(item.rating)}</div>
+                                                        <div className="pro-price"><span>${item.price}</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,42 +147,51 @@ const ProductSection = () => {
                                     </>
                                     :
                                     <>
-                                        {filterData[0].data.map((item: any) => (
-                                            <div className="col-xl-3 col-lg-3 col-md-6" key={item.id}>
-                                                <div className="product-wrapper text-center mb-30">
-                                                    <div className="product-img">
-                                                        <Link href="/shop-details" >
-                                                            <Image src={item.image} style={{ width: "100%", height: "auto" }} alt="image not found" />
-                                                        </Link>
-
-                                                        <div className="product-action">
-                                                            <button onClick={() => handleAddToCart(item)}><i className='fas fa-shopping-cart'></i></button>
-                                                            <button onClick={() => setModalData(item)}>
-                                                                <span
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#productModalId"
-                                                                >
-                                                                    <i className='fas fa-eye'></i>
-                                                                </span>
-
-                                                            </button>
-                                                            <button onClick={() => dispatch(wishlist_product(item))}><i className='fas fa-heart'></i></button>
+                                        {products && products.length > 0 ? (
+                                        <>
+                                            {products.slice(0, 4).map((item: Product) => (
+                                                <div className="col-xl-3 col-lg-3 col-md-6" key={item.id}>
+                                                    <div className="product-wrapper text-center mb-30">
+                                                        <div className="product-img">
+                                                            <Link href="/shop-details">
+                                                                {item.attributes.images && item.attributes.images.data && item.attributes.images.data.length > 0 && (
+                                                                    <Image
+                                                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.images.data[0].attributes.url}`}
+                                                                        alt={item.attributes.productName}
+                                                                        width={100}
+                                                                        height={200}
+                                                                        className="product-image"
+                                                                    />
+                                                                )}
+                                                            </Link>
+                                                            <div className="product-action">
+                                                                <button onClick={() => handleAddToCart(item)}><i className="fas fa-shopping-cart"></i></button>
+                                                                <button onClick={() => setModalData(item)}>
+                                                                    <span data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                                        <i className="fas fa-eye"></i>
+                                                                    </span>
+                                                                </button>
+                                                                <button onClick={() => dispatch(wishlist_product(item))}><i className="fas fa-heart"></i></button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="product-text">
-                                                        <h4><Link href={`/shop-details/${item.id}`} >{item.title}</Link></h4>
-                                                        <div className="pro-rating">
-                                                            {getRating(item.rating)}
-                                                        </div>
-                                                        <div className="pro-price">
-                                                            <span>${item.price}</span>
+                                                        <div className="product-text">
+                                                            <h4><Link href={`/shop-details/${item.id}`}>{item.attributes.productName}</Link></h4>
+                                                            <div className="pro-price"><span>${item.attributes.price}</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </>
+                                            ))}
 
+                                            <div className="features-text">
+                                            <Link href="/products">
+                                                Leer más <i className="dripicons-arrow-thin-right"></i>
+                                            </Link>
+                                        </div>
+                                        </>
+                                    ) : (
+                                        <p className="features-text">No hay productos en esta categoría.</p>
+                                    )}
+                                    </>
                                 }
                             </div>
                         </div>

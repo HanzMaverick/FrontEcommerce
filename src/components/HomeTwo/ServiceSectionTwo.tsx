@@ -1,10 +1,50 @@
+"use client";
 import service_data from '@/data/service-data';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import shape from '../../../public/assets/img/shape/1.png';
+import { responseType } from '../../../types/response';
+import { useAbout } from '../../../api/getAbout';
+import img4 from '../../../public/assets/img/icon/icon1.png';
+import img5 from '../../../public/assets/img/icon/icon2.png';
+import img6 from '../../../public/assets/img/icon/icon3.png';
 
 const ServiceSectionTwo = () => {
+    const { loading, result }: responseType = useAbout();
+    console.log(result);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    // Verifica que result y attributes estén definidos
+    if (!result || !result.attributes) {
+        return <p>No se encontraron datos</p>;
+    }
+
+    // Datos dinámicos de "Qué hacemos" basados en la API
+    const service_data = [
+        {
+            id: 1,
+            title: result.attributes.What_We_Do_OneTitle,
+            desc: result.attributes.What_We_Do_OneDescription,
+            image: img4 // Ícono correspondiente
+        },
+        {
+            id: 2,
+            title: result.attributes.What_We_Do_TwoTitle,
+            desc: result.attributes.What_We_Do_TwoDescription,
+            image: img5 // Ícono correspondiente
+        },
+        {
+            id: 3,
+            title: result.attributes.What_We_Do_ThreeTitle,
+            desc: result.attributes.What_We_Do_ThreeDescription,
+            image: img6 // Ícono correspondiente
+        }
+    ];
+
     return (
         <>
             <div className="we-do-area pt-110 pb-85">
@@ -15,14 +55,16 @@ const ServiceSectionTwo = () => {
                                 <div className="section-img">
                                     <Image src={shape} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                 </div>
-                                <h1>What We Do</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmotempor incididunt ut labore et dolore magna aliqua enim minim veniam</p>
+                                <h1>Qué hacemos</h1>
+                                <p>{result?.attributes.What_We_Do_Description}</p>
                             </div>
                         </div>
                     </div>
+
+                    {/* Sección dinámica de los servicios */}
                     <div className="row">
                         {
-                            service_data.slice(3, 6).map((item) => (
+                            service_data.map((item) => (
                                 <div className="col-xl-4 col-lg-4 col-md-6" key={item.id}>
                                     <div className="we-do-wrapper text-center mb-30">
                                         <div className="we-do-img">

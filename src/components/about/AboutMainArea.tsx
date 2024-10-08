@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import AboutSectionFour from './AboutSectionFour';
@@ -16,7 +17,6 @@ const AboutMainArea = () => {
             <ServiceSectionTwo />
             <TeamSectionFour />
             <TestimonialSliderTwo />
-            <BrandSection />
         </>
     );
 };

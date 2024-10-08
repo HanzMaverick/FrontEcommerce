@@ -150,12 +150,15 @@ export interface PricingPlanItemType {
 }
 
 
-//product type
+//Interfaz para poder mostrar los productos destacados
 export interface Product {
   id: number;
   attributes: {
       productName: string;
+      slug: string;
       description: string;
+      price: number;
+      stock: number;
       images: {
         data: {
           id: number;
@@ -175,9 +178,49 @@ export interface Product {
   };
 }
 
+// Interfaz corregida para poder mostrar las categorías de los productos
+export interface Category {
+  id: number;
+  attributes: {
+    nameCategory: string;
+    slug: string;
+    image: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
+  };
+}
 
 
+// Interfaz para mostrar los daots de la página de About
+export interface About {
+  id: number;
+  attributes: {	
+    Title: string;
+    About_Us: string;
+    phrase: string;
+    What_We_Do_Description: string;
+    What_We_Do_OneTitle: string;
+    What_We_Do_OneDescription: string;
+    What_We_Do_TwoTitle: string;
+    What_We_Do_TwoDescription: string;
+    What_We_Do_ThreeTitle: string;
+    What_We_Do_ThreeDescription: string;
+  };
+}
 
+//Interfaz para mostrar los datos de las preguntas
+export interface Questions {
+  id: number;
+  attributes: {
+    Question: string;
+    Response: string;
+  };
+}
 
 
 

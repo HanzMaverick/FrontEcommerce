@@ -1,10 +1,20 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import * as React from 'react';
 import aboutImg from '../../../public/assets/img/about/1.png';
 import aboutImg2 from '../../../public/assets/img/bg/about.png';
+import { responseType } from '../../../types/response';
+import { useAbout } from '../../../api/getAbout';
+import { About } from '@/interFace/interFace';
 
 const AboutSection = () => {
+    const { loading, result }: responseType = useAbout();
+    console .log(result);
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="about-us-area pt-115 pb-90" style={{ backgroundImage: `url(${aboutImg2.src})` }}>
             <div className="container">
@@ -16,19 +26,9 @@ const AboutSection = () => {
                     </div>
                     <div className="col-xl-6 col-lg-6 ">
                         <div className="about-us-text mb-30">
-                            <h1>Bienvenido a <br /> Whack Healthy</h1>
-                            <span>Con amor y dedicación</span>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-                                voluptatem accusantium doloremque.
-                            </p>
+                            <h1>Bienvenido a <br /> {result?.attributes.Title}</h1>
+                            <span>{result?.attributes.phrase}</span>
+                            <p>{result?.attributes.About_Us}</p>
                             <Link href="/about" className="btn">
                                 Learn More
                             </Link>
