@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 export function useQuestions() {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/questions`;
-    const [result, setResult] = useState(null); 
-    const [loading, setLoading] = useState(true);
+    const [resultado, setResult] = useState(null); 
+    const [carga, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -21,5 +21,5 @@ export function useQuestions() {
         })();
     }, [url]);
 
-    return { result, loading, error }; 
+    return { resultado, carga }; 
 }

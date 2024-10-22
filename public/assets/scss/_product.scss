@@ -43,7 +43,9 @@
 	right: 5%;
 }
 
-.product-tab {}
+.product-tab {
+	margin-bottom: 2rem; /* Esto crea espacio debajo de la lista */
+}
 
 .product-tab li {
 	padding: 0 58px;
@@ -91,9 +93,13 @@
 	color: #408858
 }
 
-.product-tab-content {}
+.product-tab-content {
+	margin-bottom: 4rem; /* Añade espacio entre los elementos de la lista y otros contenidos */
+}
 
-.product-tab-img {}
+.product-tab-img {
+	margin-bottom: 0.5rem; /* Añade espacio entre la imagen y el título */
+}
 
 .product-tab-img i {
 	font-size: 50px;

@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 
 export function useAbout() {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/about?populate=*`;
-    const [result, setResult] = useState(null); 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home?populate=*`;
+    const [resultH, setResult] = useState(null); 
+    const [loadingH, setLoading] = useState(true);
+    const [errorH, setError] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -21,5 +21,5 @@ export function useAbout() {
         })();
     }, [url]);
 
-    return { result, loading, error }; 
+    return { resultH, loadingH, errorH }; 
 }

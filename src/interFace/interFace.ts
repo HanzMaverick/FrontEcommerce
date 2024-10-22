@@ -210,6 +210,38 @@ export interface About {
     What_We_Do_TwoDescription: string;
     What_We_Do_ThreeTitle: string;
     What_We_Do_ThreeDescription: string;
+    About_Principal: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
+    About_Secundario: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
+    Question: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
+    image: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
   };
 }
 

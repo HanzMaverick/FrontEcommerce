@@ -1,7 +1,6 @@
 "use client";
 import Image from 'next/image';
 import React from 'react';
-import aboutImg from '../../../public/assets/img/about/2.jpg';
 import { useAbout } from '../../../api/getAbout';
 import { responseType } from '../../../types/response';
 
@@ -24,7 +23,15 @@ const AboutSectionFour = () => {
                     </div>
                     <div className="col-xl-6 col-lg-6">
                         <div className="about-img mb-30">
-                            <Image src={aboutImg} style={{ width: "100%", height: "auto" }} alt='image not found' />
+                            {result?.attributes.About_Secundario && (
+                                <Image
+                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${result?.attributes.About_Secundario.data.attributes.url}`}
+                                alt={result?.attributes.nameCategory}
+                                width={500}
+                                height={525}
+                                className="category-image"
+                            />
+                            )}
                         </div>
                     </div>
                 </div>
