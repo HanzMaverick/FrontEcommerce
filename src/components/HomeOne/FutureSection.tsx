@@ -1,15 +1,15 @@
 "use client";
 import Link from 'next/link';
 import React from 'react';
-import futureBg from '../../../public/assets/img/bg/bg1.jpg';
 import futureBgOne from '../../../public/assets/img/shape/1.png';
 import Image from 'next/image';
 import { useGetFeatureProducts } from '../../../api/getFeatureProducts';
-import { responseType } from '../../../types/response';
+import { responseType, responseType_home } from '../../../types/response';
 import { Product } from '@/interFace/interFace';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { useHomeStart } from '../../../api/getHomeStart';
 
 
 
@@ -21,7 +21,16 @@ const FutureSection = () => {
     };
 
     const {loading, result}: responseType = useGetFeatureProducts();
-    console.log(result);
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+
+    const backgroundImage = resultH?.attributes?.image_products?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.image_products.data.attributes.url}`
+    : '';
+
+
+    if(loadingH){
+        return <p className='features-text'>Cargando...</p>
+    }
 
     if(loading){
         return <p className='features-text'>Cargando...</p>
@@ -65,7 +74,7 @@ const FutureSection = () => {
     };
 
     return (
-        <div className="features-area pt-110 pb-90" style={{ backgroundImage: `url(${futureBg.src})` }}>
+        <div className="features-area pt-110 pb-90" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="container">
                 <div className="row">
                     <div className="col-xl-6 col-lg-6 offset-lg-3 offset-xl-3">

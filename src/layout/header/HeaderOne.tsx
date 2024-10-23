@@ -1,8 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Logo from "../../../public/assets/img/logo/logo.png";
-import Logo2 from "../../../public/assets/img/logo/logo@2x.png";
 import Image from 'next/image';
 import TopHeader from './HeaderTopbar';
 import useGlobalContext from '@/hooks/use-context';
@@ -13,8 +11,17 @@ import HeaderCart from './HeaderCart';
 import Menus from './components/Menus';
 import MobileMenus from './components/MobileMenus';
 import Sidebar from './components/Sidebar';
+import { responseType_home } from '../../../types/response';
+import { useHomeStart } from '../../../api/getHomeStart';
 
 const HeaderOne = () => {
+
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+
+    const logo = resultH?.attributes?.icon?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
+    : '';
+
     const { scrollDirection, inputTogglePage, toggleSideMenu, sideMenuOpen } = useGlobalContext()
     const [cartOpen, setCartOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,8 +42,8 @@ const HeaderOne = () => {
                         <div className="col-xl-2 col-lg-2 col-md-4 col-6">
                             <div className="logo">
                                 <Link href="/">
-                                    <Image className="standard-logo" style={{ width: "auto", height: "auto" }} src={Logo} alt="logo" />
-                                    <Image className="retina-logo" style={{ width: "auto", height: "auto" }} src={Logo2} alt="logo" />
+                                            {/* Aseguramos que logo tenga valor antes de renderizar Image */}
+                                            {logo && <Image src={logo} width={100}  height={100}  alt="Logo"/>}
                                 </Link>
                             </div>
                         </div>

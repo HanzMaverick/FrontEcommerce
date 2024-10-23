@@ -14,3 +14,13 @@ export type responseType_home = {
     loadingH: boolean,
     errorH: string
 }
+
+export type responseType_experience = {
+    resultE: any,
+    loadingE: boolean,
+}
+
+export type responseType_chooseUs = {
+    resultU: any,
+    loadingU: boolean,
+}

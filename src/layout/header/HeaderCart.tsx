@@ -36,7 +36,7 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                 className={cartOpen ? "cartmini__wrapper opened" : "cartmini__wrapper"}
             >
                 <div className="cartmini__title mb-30">
-                    <h4>Shopping cart</h4>
+                    <h4>Carrito de compras</h4>
                 </div>
                 <div className="cartmini__close">
                     <button
@@ -49,7 +49,7 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                 </div>
                 <div className="cartmini__widget">
                     <div className="cartmini__inner">
-                        {cartProducts.length === 0 && <h5 className="zoma-cart">Your cart is empty</h5>}
+                        {cartProducts.length === 0 && <h5 className="zoma-cart">El carrito esta vacio</h5>}
                         {cartProducts.length >= 1 && (
                             <>
                                 <ul>

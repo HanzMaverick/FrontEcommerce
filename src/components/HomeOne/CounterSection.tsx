@@ -1,31 +1,46 @@
+"use client"
 import React from "react";
-import counterBg from "../../../public/assets/img/bg/bg3.jpg";
 import CountUpContent from "../common/counter/CountUpContent";
 import counter_data from "@/data/counter-data";
-
+import { responseType_experience } from "../../../types/response";
+import { useExperience } from "../../../api/getExperience";
+import { Experience } from "@/interFace/interFace";
+import { responseType_home } from "../../../types/response";
+import { useHomeStart } from "../../../api/getHomeStart";
 
 const CounterSection = () => {
 
+    const { resultE, loadingE }: responseType_experience = useExperience();
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+
+    const backgroundImage = resultH?.attributes?.image_experence?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.image_experence.data.attributes.url}`
+    : '';
+
+    if (loadingE) {
+        return <p>Loading...</p>;
+    }
+
     return (
-        <div className="counter-area pt-110 pb-85" style={{ backgroundImage: `url(${counterBg.src})` }}>
+        <div className="counter-area pt-110 pb-85" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="container">
                 {counter_data &&
                     <div className="row">
                         <div className="col-xl-12">
                             <div className="counter-title text-center mb-60">
-                                <h1>We Are Startup Company.Experts In Field <br /> Organic Startup Movement.</h1>
+                                <h1>Somos una empresa experta en lo saludable<br /> Tu salud, nuestra prioridad. </h1>
                             </div>
                         </div>
-                        {counter_data.map((counter) => (
-                            <div key={counter.id} className="col-xl-3 col-lg-3 col-md-6">
+                        {resultE.map((item: Experience) => (
+                            <div key={item.id} className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="counter-wrapper mb-30">
                                     <div className="counter-text">
                                         <h1>
-                                            <CountUpContent number={counter.countNum}
-                                                text={counter.counterIcon}
+                                            <CountUpContent number={item.attributes.number}
+                                                text={item.attributes.counterIcon}
                                             ></CountUpContent>
                                         </h1>
-                                        <span>{counter.countTitle}</span>
+                                        <span>{item.attributes.Title}</span>
                                     </div>
                                 </div>
                             </div>

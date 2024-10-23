@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-export function useHome() {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/homes?populate=*`;
+export function useHomeStart() {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home-start?populate=*`;
     const [resultH, setResult] = useState(null); 
     const [loadingH, setLoading] = useState(true);
     const [errorH, setError] = useState("");

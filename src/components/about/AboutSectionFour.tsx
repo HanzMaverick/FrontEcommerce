@@ -6,7 +6,6 @@ import { responseType } from '../../../types/response';
 
 const AboutSectionFour = () => {
     const { loading, result }: responseType = useAbout();
-    console .log(result);
     if (loading) {
         return <p>Loading...</p>;
     }

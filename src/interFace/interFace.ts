@@ -254,6 +254,29 @@ export interface Questions {
   };
 }
 
+export interface Home{
+  id: number;
+  attributes: {
+    phrase: string;
+    info: string;
+    description: string;
+    image: {
+      data: {
+        id: number;
+        attributes: {
+          url: string;
+        };
+      };
+    };
+  };
+}
 
-
+export interface Experience {
+  id: number;
+  attributes: {
+    number: number;
+    counterIcon: string;
+    Title: string;
+  };
+}
 

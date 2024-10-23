@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-export function useHome() {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/homes?populate=*`;
-    const [resultH, setResult] = useState(null); 
-    const [loadingH, setLoading] = useState(true);
-    const [errorH, setError] = useState("");
+export function UseChooseUsSection() {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/choose-us?populate=*`;
+    const [resultU, setResult] = useState(null); 
+    const [loadingU, setLoading] = useState(true);
+    const [errorU, setError] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -21,5 +21,5 @@ export function useHome() {
         })();
     }, [url]);
 
-    return { resultH, loadingH, errorH }; 
+    return { resultU, loadingU, errorU }; 
 }

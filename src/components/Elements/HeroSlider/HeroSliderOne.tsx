@@ -1,17 +1,22 @@
 "use client"
 import Link from 'next/link';
 import React from 'react';
-import slBgImage from '../../../../public/assets/img/slider/slWHACK.jpg';
-import slBgImage2 from '../../../../public/assets/img/slider/slWHACK2.jpg';
-//swiper
 import { Autoplay, EffectFade, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
-import hero_slider_data from '@/data/hero-slider-data';
-
-
+import { useHome } from '../../../../api/getHome';
+import { responseType_home } from '../../../../types/response';
+import { Home } from '@/interFace/interFace';
 
 const HeroSliderOne = () => {
+    const {loadingH, resultH}: responseType_home = useHome();
+
+
+    if (loadingH) {
+        return <p>Loading...</p>;
+    }
+
+
     return (
         <div className="slider-area">
 
@@ -35,19 +40,24 @@ const HeroSliderOne = () => {
                     }}
                 >
                     {
-                        hero_slider_data.slice(0, 2).map((item, index) => (
+                        resultH.map((item: Home) => (
                             <SwiperSlide key={item.id}>
                                 <div className="single-slider" >
-                                    <div className="slider-height  d-flex align-items-center p-relative" style={{ backgroundImage: `url(${item.image.src})` }}>
+                                    <div className="slider-height  d-flex align-items-center p-relative" 
+                                    style={{ 
+                                        backgroundImage: item.attributes.image?.data?.attributes.url 
+                                            ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.image.data.attributes.url})`
+                                            : 'none' // Si no hay imagen, el fondo queda vacío
+                                    }}>
                                         <div className="container">
                                             <div className="row ">
                                                 <div className="col-xl-12">
                                                     <div className="slider-content mt-85">
                                                         <h1 data-animation="fadeInUp" data-delay=".6s">
-                                                            {item.title} <br /> {item.info}
+                                                            {item.attributes.phrase} <br /> {item.attributes.info}
                                                         </h1>
                                                         <p data-animation="fadeInUp" data-delay=".8s">
-                                                            {item.desc}
+                                                            {item.attributes.description}
                                                         </p>
                                                         <div className="slider-button">
                                                             <Link href="/services" data-animation="fadeInLeft" data-delay=".8s" className="btn">

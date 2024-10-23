@@ -1,23 +1,36 @@
 import Link from 'next/link';
 import React from 'react';
-import Logo from '../../../public/assets/img/logo/white.png';
 import shape1 from '../../../public/assets/img/shape/f.png';
-import footerBgImg from '../../../public/assets/img/bg/bg6.jpg';
 import Image from 'next/image';
 import SocialIcon from './social-icon';
 import CopyRightArea from './copyright-area';
+import { responseType_home } from '../../../types/response';
+import { useHomeStart } from '../../../api/getHomeStart';
 
 const Footer = () => {
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+
+    const backgroundImage = resultH?.attributes?.fooder?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.fooder.data.attributes.url}`
+    : '';
+
+    const logo = resultH?.attributes?.icon?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
+    : '';
+
     return (
         <footer>
-            <div className="footer-area pt-200" style={{ backgroundImage: `url(${footerBgImg.src})` }}>
+            <div className="footer-area pt-200" style={{ backgroundImage: `url(${backgroundImage})` }}>
                 <div className="container">
                     <div className="footer-bg pb-50">
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="footer-wrapper mb-30">
                                     <div className="footer-logo">
-                                        <Link href="/"><Image src={Logo} style={{ width: "auto", height: "auto" }} alt="image not found" /></Link>
+                                        <Link href="/"> 
+                                            {/* Aseguramos que logo tenga valor antes de renderizar Image */}
+                                            {logo && <Image src={logo} width={150}  height={150}  alt="Logo"/>}
+                                        </Link>
                                     </div>
                                     <div className="footer-text">
                                         <p>Lorem ipsum dolor amet cons adipisicing elit sed do eiusmod tempor incididunt
@@ -37,7 +50,7 @@ const Footer = () => {
                                         <li><Link href="/contact">Help and Ordering</Link></li>
                                         <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                                         <li><Link href="/service">Return &amp; Cancellation</Link></li>
-                                        <li><Link href="/contact">Delevery Schedule</Link></li>
+                                        <li><Link href="/contact">Delivery Schedule</Link></li>
                                         <li><Link href="/contact">Get a Call</Link></li>
                                         <li><Link href="/service">Online Enquiry</Link></li>
                                     </ul>
@@ -81,7 +94,7 @@ const Footer = () => {
                                     </div>
                                     <div className="subscribes-form">
                                         <div className="form-wrap">
-                                            <input type="email" placeholder="Enter your emaill" />
+                                            <input type="email" placeholder="Enter your email" />
                                             <button className="btn">Subscribe</button>
                                         </div>
                                     </div>

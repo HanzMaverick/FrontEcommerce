@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '../../../public/assets/img/logo/logo.png';
-import LogoTwo from '../../../public/assets/img/logo/logo@2x.png';
 import TopHeaderTwo from './TopHeaderTwo';
 import useGlobalContext from '@/hooks/use-context';
 import SearchBarModel from '@/components/common/SearchModel';
@@ -13,9 +11,19 @@ import { RootState } from '@/redux/store';
 import Menus from './components/Menus';
 import MobileMenus from './components/MobileMenus';
 import Sidebar from './components/Sidebar';
+import { responseType_home } from '../../../types/response';
+import { useHomeStart } from '../../../api/getHomeStart';
+
 
 
 const HeaderTwo = () => {
+
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+
+    const logo = resultH?.attributes?.icon?.data?.attributes?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
+    : '';
+
     const { scrollDirection, inputTogglePage, toggleSideMenu, sideMenuOpen } = useGlobalContext()
     const [cartOpen, setCartOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -37,9 +45,9 @@ const HeaderTwo = () => {
                             <div className="logo">
                                 <Link href="/">
                                     <Image className="standard-logo"
-                                        src={Logo} style={{ width: "auto", height: "auto" }} alt="logo" />
+                                        src={logo} width={100} height={100} alt="logo" />
                                     <Image className="retina-logo"
-                                        src={LogoTwo} style={{ width: "auto", height: "auto" }} alt="logo" />
+                                        src={logo} width={100} height={100} alt="logo" />
                                 </Link>
                             </div>
                         </div>
