@@ -24,3 +24,9 @@ export type responseType_chooseUs = {
     resultU: any,
     loadingU: boolean,
 }
+
+export type responseType_info = {
+    resultI: any,
+    loadingI: boolean,
+    errorI: string
+}

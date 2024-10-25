@@ -8,9 +8,9 @@ const CopyRightArea = () => {
                 <div className="col-xl-12">
                     <div className="copyright text-center">
                         <p>
-                            Copyright <i className='fas fa-copyright'></i> 2023 <Link
-                                href="#">Zomata</Link>. All
-                            Rights Reserved</p>
+                            Copyright <i className='fas fa-copyright'></i> 2024 <Link
+                                href="#">Wack</Link>. Todos los
+                            derechos reservados</p>
                     </div>
                 </div>
             </div>

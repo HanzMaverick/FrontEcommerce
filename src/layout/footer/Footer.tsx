@@ -6,9 +6,12 @@ import SocialIcon from './social-icon';
 import CopyRightArea from './copyright-area';
 import { responseType_home } from '../../../types/response';
 import { useHomeStart } from '../../../api/getHomeStart';
+import { useInfo } from '../../../api/getInfo';
+import {responseType_info} from '../../../types/response';
 
 const Footer = () => {
     const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const {resultI,loadingI, errorI}: responseType_info = useInfo();
 
     const backgroundImage = resultH?.attributes?.fooder?.data?.attributes?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.fooder.data.attributes.url}`
@@ -17,6 +20,10 @@ const Footer = () => {
     const logo = resultH?.attributes?.icon?.data?.attributes?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
     : '';
+
+    if (loadingI) {
+        return <div>Loading...</div>
+    }
 
     return (
         <footer>
@@ -33,9 +40,7 @@ const Footer = () => {
                                         </Link>
                                     </div>
                                     <div className="footer-text">
-                                        <p>Lorem ipsum dolor amet cons adipisicing elit sed do eiusmod tempor incididunt
-                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud
-                                            exercitation ullamco laboris nisi ut aliquip.</p>
+                                        <p>{resultI?.attributes.description}</p>
                                     </div>
                                     <SocialIcon WrapperClass='footer-icon' />
                                 </div>
@@ -43,42 +48,51 @@ const Footer = () => {
                             <div className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="footer-wrapper pl-45 mb-30">
                                     <div className="footer-title">
-                                        <h4>Customer Support</h4>
+                                        <h4>Atención al cliente</h4>
                                         <Image src={shape1} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                     </div>
                                     <ul className="fotter-menu">
-                                        <li><Link href="/contact">Help and Ordering</Link></li>
-                                        <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-                                        <li><Link href="/service">Return &amp; Cancellation</Link></li>
-                                        <li><Link href="/contact">Delivery Schedule</Link></li>
-                                        <li><Link href="/contact">Get a Call</Link></li>
-                                        <li><Link href="/service">Online Enquiry</Link></li>
+                                        <li><Link href="/contact">Ayuda y pedidos</Link></li>
+                                        <li><Link href="/privacy-policy">Política de privacidad</Link></li>
+                                        {/* <li><Link href="/service">Devolver &amp; Cancelación</Link></li>
+                                        <li><Link href="/contact">Horario de entrega</Link></li>
+                                        <li><Link href="/contact">Recibir una llamada</Link></li>
+                                        <li><Link href="/service">Consulta en línea</Link></li> */}
                                     </ul>
                                 </div>
                             </div>
                             <div className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="footer-wrapper pl-45 mb-30">
                                     <div className="footer-title">
-                                        <h4>Contact Info</h4>
+                                        <h4>Información de contacto</h4>
                                         <Image src={shape1} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                     </div>
                                     <ul className="fotter-link">
                                         <li>
                                             <i className='fas fa-paper-plane'></i>
                                             <span className='zomata-contact'>
-                                                <Link href="#">205 Olazu Familia, Herba Street Front USA</Link>
+                                                <Link href="#">{resultI?.attributes.address}</Link>
                                             </span>
                                         </li>
                                         <li>
                                             <i className='fas fa-envelope-open'></i>
-                                            <span className='zomata-contact'> <Link href="mailto:zomatainfo@gmail.com">
-                                                zomatainfo@gmail.com
-                                            </Link></span>
-
+                                            <span className='zomata-contact'>
+                                                {resultI?.attributes?.email && (
+                                                    <a href={`mailto:${resultI.attributes.email}`}>
+                                                        {resultI.attributes.email}
+                                                    </a>
+                                                )}
+                                            </span>
                                         </li>
                                         <li>
                                             <i className='fas fa-headphones'></i>
-                                            <span className='zomata-contact'> <Link href="tel:+53684956245">+(536) 84 95 62 45</Link> </span>
+                                            <span className='zomata-contact'>
+                                                {resultI?.attributes?.phone && (
+                                                    <a href={`tel:${resultI.attributes.phone}`}>
+                                                        {resultI.attributes.phone}
+                                                    </a>
+                                                )}
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -86,16 +100,16 @@ const Footer = () => {
                             <div className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="footer-wrapper pl-40 mb-30">
                                     <div className="footer-title">
-                                        <h4>Newsletters</h4>
+                                        <h4>Boletines informativos</h4>
                                         <Image src={shape1} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                     </div>
                                     <div className="footer-content">
-                                        <p>Enter your email and we’ll send you latest information plans.</p>
+                                        <p>Ingresa tu email y te enviaremos información de los nuevos productos.</p>
                                     </div>
                                     <div className="subscribes-form">
                                         <div className="form-wrap">
-                                            <input type="email" placeholder="Enter your email" />
-                                            <button className="btn">Subscribe</button>
+                                            <input type="email" placeholder="Ingresa tu correo electrónico" />
+                                            <button className="btn">Suscribir</button>
                                         </div>
                                     </div>
                                 </div>
