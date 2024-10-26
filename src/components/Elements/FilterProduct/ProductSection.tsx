@@ -37,7 +37,6 @@ const ProductSection = () => {
     // Obtener los datos de la categoría
     const { loading: categoryLoading, result: categories = [], error: categoryError }: responseType = useGetCategory();
 
-    // Obtener los datos de los productos filtrados por categoría
     const { Result: products = [], Loading: productsLoading, Error: productsError } = useGetProductsCategory(activeCategorySlug);
 
     // Mostrar indicadores de carga o errores

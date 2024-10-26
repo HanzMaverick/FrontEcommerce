@@ -108,9 +108,10 @@ const FutureSection = () => {
                                 <div className="features-text">
                                     <h4>{item.productName}</h4>
                                     <p>{truncateText(item.description, 38)}</p>
-                                    <Link href="/products">
+                                    <Link href={`/shop-details/${item.id}`}>
                                         Leer más <i className="dripicons-arrow-thin-right"></i>
                                     </Link>
+
                                 </div>
                             </div>
                         ))}

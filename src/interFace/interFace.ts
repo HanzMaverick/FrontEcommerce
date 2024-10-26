@@ -100,7 +100,7 @@ export interface productCategoryType{
 }
 // id type
 export interface idType {
-  id?: number;
+  id: number;
 }
 
 // brands type
@@ -153,22 +153,19 @@ export interface PricingPlanItemType {
 //Interfaz para poder mostrar los productos destacados
 export interface Product {
   id: number;
-      productName: string;
-      slug: string;
-      description: string;
-      price: number;
-      stock: number;
-      images: {
-          id: number;
-          url: string;
-      }[];
-      category: {
-
-            slug: string;
-            nameCategory: string;
-
-      }
-
+  productName: string;
+  slug: string;
+  description: string;
+  price: number;
+  stock: number;
+  images: {
+    id: number;
+    url: string;
+  }[];
+  category: {
+    slug: string;
+    nameCategory: string;
+  }
 }
 
 // Interfaz corregida para poder mostrar las categorías de los productos
