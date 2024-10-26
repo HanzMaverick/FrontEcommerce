@@ -1,8 +1,6 @@
 "use client"
 import Image from 'next/image';
 import React from 'react';
-import imgOne from '../../../public/assets/img/shape/why-shape.png';
-import imgTwo from '../../../public/assets/img/choose/01.jpg';
 import icon1 from '../../../public/assets/img/icon/1.png';
 import icon2 from '../../../public/assets/img/icon/2.png';
 import icon3 from '../../../public/assets/img/icon/3.png';
@@ -11,8 +9,8 @@ import {responseType_chooseUs} from '../../../types/response';
 
 const ChooseUsSection = () => {
     const { resultU, loadingU }: responseType_chooseUs = UseChooseUsSection();
-    const product = resultU?.attributes.image 
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultU.attributes.image.data.attributes.url}` 
+    const product = resultU?.image 
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultU.image.url}` 
                     : '';
     if (loadingU) {
         return <p>Loading...</p>;
@@ -38,7 +36,7 @@ const ChooseUsSection = () => {
                                     <div className="choose-section">
                                         <h1>¿Por qué elegirnos?</h1>
                                         <p>
-                                            {resultU?.attributes.description}
+                                            {resultU?.description}
                                         </p>
                                     </div>
                                     <div className="choose-content mb-40">
@@ -46,8 +44,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon1} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.attributes.title_one}</h4>
-                                            <p>{resultU?.attributes.description_one}</p>
+                                            <h4>{resultU?.title_one}</h4>
+                                            <p>{resultU?.description_one}</p>
                                         </div>
                                     </div>
                                     <div className="choose-content mb-40">
@@ -55,8 +53,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon2} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.attributes.title_two}</h4>
-                                            <p> {resultU?.attributes.description_two}</p>
+                                            <h4>{resultU?.title_two}</h4>
+                                            <p> {resultU?.description_two}</p>
                                         </div>
                                     </div>
                                     <div className="choose-content">
@@ -64,8 +62,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon3} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.attributes.title_three}</h4>
-                                            <p>{resultU?.attributes.description_three}</p>
+                                            <h4>{resultU?.title_three}</h4>
+                                            <p>{resultU?.description_three}</p>
                                         </div>
                                     </div>
                                 </div>

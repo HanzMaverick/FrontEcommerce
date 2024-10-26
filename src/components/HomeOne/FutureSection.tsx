@@ -23,8 +23,8 @@ const FutureSection = () => {
     const {loading, result}: responseType = useGetFeatureProducts();
     const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
 
-    const backgroundImage = resultH?.attributes?.image_products?.data?.attributes?.url
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.image_products.data.attributes.url}`
+    const backgroundImage = resultH?.image_products?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.image_products.url}`
     : '';
 
 
@@ -95,10 +95,10 @@ const FutureSection = () => {
                         {result.map((item: Product) => (
                             <div className="features-wrapper text-center mb-30" key={item.id}>
                                 <div className="features-img">
-                                    {item.attributes.images?.data.length > 0 && (
+                                    {item.images?.length > 0 && (
                                         <Image
-                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.images.data[0].attributes.url}`}
-                                            alt={item.attributes.productName}
+                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
+                                            alt={item.productName}
                                             width={200} // Ajuste del ancho
                                             height={200} // Ajuste del alto
                                             className="product-image" // Añadir clase para CSS personalizado
@@ -106,8 +106,8 @@ const FutureSection = () => {
                                     )}
                                 </div>
                                 <div className="features-text">
-                                    <h4>{item.attributes.productName}</h4>
-                                    <p>{truncateText(item.attributes.description, 38)}</p>
+                                    <h4>{item.productName}</h4>
+                                    <p>{truncateText(item.description, 38)}</p>
                                     <Link href="/products">
                                         Leer más <i className="dripicons-arrow-thin-right"></i>
                                     </Link>

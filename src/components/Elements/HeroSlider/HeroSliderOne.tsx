@@ -45,8 +45,8 @@ const HeroSliderOne = () => {
                                 <div className="single-slider" >
                                     <div className="slider-height  d-flex align-items-center p-relative" 
                                     style={{ 
-                                        backgroundImage: item.attributes.image?.data?.attributes.url 
-                                            ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.image.data.attributes.url})`
+                                        backgroundImage: item.image?.url 
+                                            ? `url(${process.env.NEXT_PUBLIC_BACKEND_URL}${item.image.url})`
                                             : 'none' // Si no hay imagen, el fondo queda vacío
                                     }}>
                                         <div className="container">
@@ -54,10 +54,10 @@ const HeroSliderOne = () => {
                                                 <div className="col-xl-12">
                                                     <div className="slider-content mt-85">
                                                         <h1 data-animation="fadeInUp" data-delay=".6s">
-                                                            {item.attributes.phrase} <br /> {item.attributes.info}
+                                                            {item.phrase} <br /> {item.info}
                                                         </h1>
                                                         <p data-animation="fadeInUp" data-delay=".8s">
-                                                            {item.attributes.description}
+                                                            {item.description}
                                                         </p>
                                                         <div className="slider-button">
                                                             <Link href="/services" data-animation="fadeInLeft" data-delay=".8s" className="btn">

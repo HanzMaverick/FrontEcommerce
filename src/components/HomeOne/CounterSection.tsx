@@ -13,8 +13,8 @@ const CounterSection = () => {
     const { resultE, loadingE }: responseType_experience = useExperience();
     const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
 
-    const backgroundImage = resultH?.attributes?.image_experence?.data?.attributes?.url
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.image_experence.data.attributes.url}`
+    const backgroundImage = resultH?.image_experence?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.image_experence.url}`
     : '';
 
     if (loadingE) {
@@ -36,11 +36,11 @@ const CounterSection = () => {
                                 <div className="counter-wrapper mb-30">
                                     <div className="counter-text">
                                         <h1>
-                                            <CountUpContent number={item.attributes.number}
-                                                text={item.attributes.counterIcon}
+                                            <CountUpContent number={item.number}
+                                                text={item.counterIcon}
                                             ></CountUpContent>
                                         </h1>
-                                        <span>{item.attributes.Title}</span>
+                                        <span>{item.Title}</span>
                                     </div>
                                 </div>
                             </div>

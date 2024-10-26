@@ -18,8 +18,8 @@ const HeaderOne = () => {
 
     const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
 
-    const logo = resultH?.attributes?.icon?.data?.attributes?.url
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
+    const logo = resultH?.icon?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`
     : '';
 
     const { scrollDirection, inputTogglePage, toggleSideMenu, sideMenuOpen } = useGlobalContext()

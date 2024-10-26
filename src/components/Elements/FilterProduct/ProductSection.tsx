@@ -39,7 +39,6 @@ const ProductSection = () => {
 
     // Obtener los datos de los productos filtrados por categoría
     const { Result: products = [], Loading: productsLoading, Error: productsError } = useGetProductsCategory(activeCategorySlug);
-    console.log(products);
 
     // Mostrar indicadores de carga o errores
     if (categoryLoading || productsLoading) {
@@ -93,22 +92,22 @@ const ProductSection = () => {
                                     categories.map((item: Category) => (
                                         <li 
                                             key={item.id} 
-                                            onClick={() => setActiveCategorySlug(item.attributes.slug)}
-                                            className={activeCategorySlug === item.attributes.slug ? 'active nav-item' : ''}
+                                            onClick={() => setActiveCategorySlug(item.slug)}
+                                            className={activeCategorySlug === item.slug ? 'active nav-item' : ''}
                                         >
                                             <div className="product-tab-content text-center">
                                                 <div className="product-tab-img">
-                                                    {item.attributes.image?.data && (
+                                                    {item.image && (
                                                         <Image
-                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.image.data.attributes.url}`}
-                                                            alt={item.attributes.nameCategory}
+                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.image.url}`}
+                                                            alt={item.nameCategory}
                                                             width={50}
                                                             height={50}
                                                             className="category-image"
                                                         />
                                                     )}
                                                 </div>
-                                                <h4>{item.attributes.nameCategory}</h4>
+                                                <h4>{item.nameCategory}</h4>
                                             </div>
                                         </li>
                                     ))
@@ -154,10 +153,10 @@ const ProductSection = () => {
                                                     <div className="product-wrapper text-center mb-30">
                                                         <div className="product-img">
                                                             <Link href="/shop-details">
-                                                                {item.attributes.images && item.attributes.images.data && item.attributes.images.data.length > 0 && (
+                                                                {item.images && item.images && item.images.length > 0 && (
                                                                     <Image
-                                                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.attributes.images.data[0].attributes.url}`}
-                                                                        alt={item.attributes.productName}
+                                                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
+                                                                        alt={item.productName}
                                                                         width={100}
                                                                         height={200}
                                                                         className="product-image"
@@ -175,8 +174,8 @@ const ProductSection = () => {
                                                             </div>
                                                         </div>
                                                         <div className="product-text">
-                                                            <h4><Link href={`/shop-details/${item.id}`}>{item.attributes.productName}</Link></h4>
-                                                            <div className="pro-price"><span>${item.attributes.price}</span></div>
+                                                            <h4><Link href={`/shop-details/${item.id}`}>{item.productName}</Link></h4>
+                                                            <div className="pro-price"><span>${item.price}</span></div>
                                                         </div>
                                                     </div>
                                                 </div>

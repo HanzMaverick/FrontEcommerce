@@ -18,8 +18,8 @@ const FaqSection = () => {
     }
 
 
-    const backgroundImageUrl = result?.attributes.Question 
-                                ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.attributes.Question.data.attributes.url}` 
+    const backgroundImageUrl = result?.Question 
+                                ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Question.url}` 
                                 : '';
 
     return (
@@ -53,7 +53,7 @@ const FaqSection = () => {
                                                 aria-expanded={index === 0 ? 'true' : 'false'} 
                                                 aria-controls={`collapse${index}`}
                                             >
-                                                <h5>{faq.attributes.Question}</h5>
+                                                <h5>{faq.Question}</h5>
                                             </button>
                                         </div>
                                         <div 
@@ -63,7 +63,7 @@ const FaqSection = () => {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion__panel">
-                                                <p>{faq.attributes.Response}</p>
+                                                <p>{faq.Response}</p>
                                             </div>
                                         </div>
                                     </div>

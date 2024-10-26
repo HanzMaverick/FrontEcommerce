@@ -15,17 +15,17 @@ const AboutSectionFour = () => {
                 <div className="row">
                     <div className="col-xl-6 col-lg-6">
                         <div className="about-info mb-30">
-                            <h1>Bienvenido a <br /> {result?.attributes.Title}</h1>
-                            <span>{result?.attributes.phrase}</span>
-                            <p>{result?.attributes.About_Us}</p>
+                            <h1>Bienvenido a <br /> {result?.Title}</h1>
+                            <span>{result?.phrase}</span>
+                            <p>{result?.About_Us}</p>
                         </div>
                     </div>
                     <div className="col-xl-6 col-lg-6">
                         <div className="about-img mb-30">
-                            {result?.attributes.About_Secundario && (
+                            {result?.About_Secundario && (
                                 <Image
-                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${result?.attributes.About_Secundario.data.attributes.url}`}
-                                alt={result?.attributes.nameCategory}
+                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${result?.About_Secundario.url}`}
+                                alt={result?.nameCategory}
                                 width={500}
                                 height={525}
                                 className="category-image"

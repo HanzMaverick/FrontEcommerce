@@ -12,12 +12,12 @@ const AboutSection = () => {
         return <p>Loading...</p>;
     }
 
-    const backgroundImageUrl = result?.attributes.About_Principal 
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.attributes.About_Principal.data.attributes.url}` 
+    const backgroundImageUrl = result?.About_Principal 
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.About_Principal.url}` 
                     : '';
 
-    const product = result?.attributes.image 
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.attributes.image.data.attributes.url}` 
+    const product = result?.image 
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.image.url}` 
                     : '';
 
     return (
@@ -45,9 +45,9 @@ const AboutSection = () => {
                     </div>
                     <div className="col-xl-6 col-lg-6 ">
                         <div className="about-us-text mb-30">
-                            <h1>Bienvenido a <br /> {result?.attributes.Title}</h1>
-                            <span>{result?.attributes.phrase}</span>
-                            <p>{result?.attributes.About_Us}</p>
+                            <h1>Bienvenido a <br /> {result?.Title}</h1>
+                            <span>{result?.phrase}</span>
+                            <p>{result?.About_Us}</p>
                             <Link href="/about" className="btn">
                                 Learn More
                             </Link>

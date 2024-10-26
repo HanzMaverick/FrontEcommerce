@@ -13,12 +13,12 @@ const Footer = () => {
     const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
     const {resultI,loadingI, errorI}: responseType_info = useInfo();
 
-    const backgroundImage = resultH?.attributes?.fooder?.data?.attributes?.url
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.fooder.data.attributes.url}`
+    const backgroundImage = resultH?.fooder?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.fooder.url}`
     : '';
 
-    const logo = resultH?.attributes?.icon?.data?.attributes?.url
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.attributes.icon.data.attributes.url}`
+    const logo = resultH?.icon?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`
     : '';
 
     if (loadingI) {
@@ -40,7 +40,7 @@ const Footer = () => {
                                         </Link>
                                     </div>
                                     <div className="footer-text">
-                                        <p>{resultI?.attributes.description}</p>
+                                        <p>{resultI?.description}</p>
                                     </div>
                                     <SocialIcon WrapperClass='footer-icon' />
                                 </div>
@@ -71,15 +71,15 @@ const Footer = () => {
                                         <li>
                                             <i className='fas fa-paper-plane'></i>
                                             <span className='zomata-contact'>
-                                                <Link href="#">{resultI?.attributes.address}</Link>
+                                                <Link href="#">{resultI?.address}</Link>
                                             </span>
                                         </li>
                                         <li>
                                             <i className='fas fa-envelope-open'></i>
                                             <span className='zomata-contact'>
-                                                {resultI?.attributes?.email && (
-                                                    <a href={`mailto:${resultI.attributes.email}`}>
-                                                        {resultI.attributes.email}
+                                                {resultI?.email && (
+                                                    <a href={`mailto:${resultI.email}`}>
+                                                        {resultI.email}
                                                     </a>
                                                 )}
                                             </span>
@@ -87,9 +87,9 @@ const Footer = () => {
                                         <li>
                                             <i className='fas fa-headphones'></i>
                                             <span className='zomata-contact'>
-                                                {resultI?.attributes?.phone && (
-                                                    <a href={`tel:${resultI.attributes.phone}`}>
-                                                        {resultI.attributes.phone}
+                                                {resultI?.phone && (
+                                                    <a href={`tel:${resultI.phone}`}>
+                                                        {resultI.phone}
                                                     </a>
                                                 )}
                                             </span>

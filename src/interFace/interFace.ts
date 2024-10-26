@@ -153,45 +153,32 @@ export interface PricingPlanItemType {
 //Interfaz para poder mostrar los productos destacados
 export interface Product {
   id: number;
-  attributes: {
       productName: string;
       slug: string;
       description: string;
       price: number;
       stock: number;
       images: {
-        data: {
           id: number;
-          attributes: {
-            url: string;
-          }
-        }[]
-      }
+          url: string;
+      }[];
       category: {
-        data: {
-          attributes: {
+
             slug: string;
             nameCategory: string;
-          }
-        }
+
       }
-  };
+
 }
 
 // Interfaz corregida para poder mostrar las categorías de los productos
 export interface Category {
   id: number;
-  attributes: {
-    nameCategory: string;
-    slug: string;
-    image: {
-      data: {
-        id: number;
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  nameCategory: string;
+  slug: string;
+  image: {
+    id: number;
+    url: string;
   };
 }
 
@@ -199,7 +186,6 @@ export interface Category {
 // Interfaz para mostrar los daots de la página de About
 export interface About {
   id: number;
-  attributes: {	
     Title: string;
     About_Us: string;
     phrase: string;
@@ -211,72 +197,55 @@ export interface About {
     What_We_Do_ThreeTitle: string;
     What_We_Do_ThreeDescription: string;
     About_Principal: {
-      data: {
         id: number;
-        attributes: {
           url: string;
-        };
-      };
+
     };
     About_Secundario: {
-      data: {
+
         id: number;
-        attributes: {
           url: string;
-        };
-      };
+
     };
     Question: {
-      data: {
+
         id: number;
-        attributes: {
           url: string;
-        };
-      };
+
     };
     image: {
-      data: {
+
         id: number;
-        attributes: {
           url: string;
-        };
-      };
+
     };
-  };
 }
 
 //Interfaz para mostrar los datos de las preguntas
 export interface Questions {
   id: number;
-  attributes: {
     Question: string;
     Response: string;
-  };
 }
 
 export interface Home{
   id: number;
-  attributes: {
     phrase: string;
     info: string;
     description: string;
     image: {
-      data: {
+
         id: number;
-        attributes: {
           url: string;
-        };
-      };
+
+
     };
-  };
 }
 
 export interface Experience {
   id: number;
-  attributes: {
     number: number;
     counterIcon: string;
     Title: string;
-  };
 }
 
