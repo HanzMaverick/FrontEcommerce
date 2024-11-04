@@ -7,7 +7,6 @@ import { useAbout } from '../../../api/getAbout';
 
 const AboutSection = () => {
     const { loading, result }: responseType = useAbout();
-    console .log(result);
     if (loading) {
         return <p>Loading...</p>;
     }

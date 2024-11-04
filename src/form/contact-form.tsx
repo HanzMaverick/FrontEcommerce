@@ -5,9 +5,16 @@ import { useFormik } from 'formik';
 import { contact_schema } from '@/utils/validation-schema';
 import { toast } from 'react-toastify';
 import ErrorMsgTwo from './error-msg-two';
-import { useInfo } from '../../api/getInfo';
+import { useHeader } from '../../api/getHeader';
+import { responseType } from '../../types/response';
+
 
 const ContactForm = () => {
+    const { result, loading, error }: responseType = useHeader();
+    const backgroundImageUrl = result?.Contact
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Contact.url}` 
+    : '';
+
     const { handleChange, handleSubmit, handleBlur, errors, values, touched } =
         useFormik({
             initialValues: {
@@ -27,7 +34,7 @@ const ContactForm = () => {
         <div className="contact-area">
             <div className="container">
                 <div className="contact-bg pt-90 pb-70"
-                    style={{ backgroundImage: `url(${ContactBg.src})` }}>
+                    style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
                     <div className="row">
                         <div className="col-xl-12">
                             <div className="contact-title text-center mb-35">

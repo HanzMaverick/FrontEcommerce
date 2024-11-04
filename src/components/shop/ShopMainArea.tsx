@@ -62,7 +62,7 @@ const ShopMainArea = () => {
 
     return (
         <>
-            <Breadcrumb title='Shop Page' subTitle='Shop Page' />
+            <Breadcrumb title='Página de productos' subTitle='Página de productos' />
             <div className="product-area pos-relative pt-110 pb-120 fix">
                 <div className="container">
                     <div className="row">

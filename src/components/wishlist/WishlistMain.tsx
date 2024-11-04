@@ -29,7 +29,7 @@ const WishlistMain = () => {
 
     return (
         <main>
-            <Breadcrumb title="My Wishlist" subTitle="Wishlist" />
+            <Breadcrumb title="Lista de deseos" subTitle="Lista de deseos" />
             <div className="cart-area pt-100 pb-100">
                 <div className="container">
                     {wishlistProducts?.length === 0 && (

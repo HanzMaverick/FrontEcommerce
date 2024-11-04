@@ -4,10 +4,11 @@ import ContactInfoSection from './ContactInfoSection';
 import ContactForm from '@/form/contact-form';
 import MapSection from './MapSection';
 
+
 const ContactMainArea = () => {
     return (
         <>
-            <Breadcrumb title='Contact Us' subTitle='Contact Us' />
+            <Breadcrumb title='Contacto' subTitle='Contacto' />
             <ContactInfoSection />
             <ContactForm />
             <MapSection />

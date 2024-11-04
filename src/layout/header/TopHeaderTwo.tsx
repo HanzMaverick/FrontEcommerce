@@ -1,8 +1,12 @@
+"use client";
 import React from 'react';
 import SocialIcon from '../footer/social-icon';
 import Link from 'next/link';
+import { useInfo } from '../../../api/getInfo';
+import { responseType_info } from '../../../types/response';
 
 const TopHeaderTwo = () => {
+    const {resultI,loadingI,errorI}: responseType_info =  useInfo();
 
     return (
         <div className="header-area header-2 d-none d-md-block">
@@ -14,13 +18,13 @@ const TopHeaderTwo = () => {
                                 <span>
                                     <i className='far fa-map'> </i>
                                     <Link href='#'>
-                                        504 White St . Dawsonville, GA 30534 , New York
+                                        {resultI?.address}
                                     </Link>
                                 </span>
                                 <span>
                                     <i className='far fa-envelope'> </i>
                                     <Link href="mailto:suport@gmail.com">
-                                        suport@gmail.com
+                                        {resultI?.email}
                                     </Link>
                                 </span>
                             </div>

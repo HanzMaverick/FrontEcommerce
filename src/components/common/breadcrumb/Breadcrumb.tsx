@@ -1,6 +1,9 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
-import bgImage from '../../../../public/assets/img/bg/bg15.jpg';
+import { useHeader } from '../../../../api/getHeader';
+import { responseType } from '../../../../types/response';
+
 
 interface PropsData {
     title: string | undefined,
@@ -8,16 +11,22 @@ interface PropsData {
 }
 
 const Breadcrumb = ({ title, subTitle }: PropsData) => {
+    const { result, loading, error }: responseType = useHeader();
+    const backgroundImageUrl = result?.Shop
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Shop.url}` 
+                    : '';
+
+                    
     return (
         <>
-            <div className="breadcrumb-area pt-160 pb-170" style={{ backgroundImage: `url(${bgImage.src})` }}>
+            <div className="breadcrumb-area pt-160 pb-170" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12">
                             <div className="breadcrumb-text text-center">
                                 <h1>{title}</h1>
                                 <ul className="breadcrumb-menu">
-                                    <li><Link href="/">Home</Link></li>
+                                    <li><Link href="/">Inicio</Link></li>
                                     <li><i className='fas fa-chevron-right'></i></li>
                                     <li><span>{subTitle}</span></li>
                                 </ul>

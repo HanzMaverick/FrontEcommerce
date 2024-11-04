@@ -26,7 +26,7 @@ const CartMain = () => {
 
     return (
         <main>
-            <Breadcrumb title="My Cart" subTitle="Cart" />
+            <Breadcrumb title="Carrito de compras" subTitle="Carrito de compras" />
 
             {cartProducts.length === 0 ? (
                 <div className="container">

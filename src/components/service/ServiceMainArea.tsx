@@ -10,7 +10,7 @@ import BrandSection from '../Elements/brand/BrandSection';
 const ServiceMainArea = () => {
     return (
         <>
-            <Breadcrumb title='Our Services' subTitle='Our Services' />
+            <Breadcrumb title='Nuestros servicios' subTitle='Nuestros servicios' />
             <SpStyleOne />
             <ServiceSectionFour />
             <ServiceVideoSection />

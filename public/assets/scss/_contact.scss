@@ -1,5 +1,10 @@
 /* 25. Contact */
-.contact-address-area {}
+.contact-address-area {
+	display: flex;
+	justify-content: center; /* Centra horizontalmente */
+	align-items: center; /* Centra verticalmente */
+	height: 100vh; /* Asegúrate de que la sección ocupe toda la altura de la ventana */
+}
 
 .contact-address-wrapper {
 	border: 2px solid #e9e9e9;

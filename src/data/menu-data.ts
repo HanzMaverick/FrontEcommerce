@@ -33,8 +33,7 @@ interface MenuItem {
       link: "#",
       pluseIncon: true,
       submenus: [
-        { title: "Service", link: "/services" },
-        { title: "Service Details", link: "/services-details" }
+        { title: "Servicios", link: "/services" },
       ],
     },
   

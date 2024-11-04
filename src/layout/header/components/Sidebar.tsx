@@ -10,6 +10,11 @@ import Logo from '../../../../public/assets/img/logo/logo-white.png';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { useInfo } from '../../../../api/getInfo';
+import { responseType_info } from '../../../../types/response';
+import { useHomeStart } from '../../../../api/getHomeStart';
+import { responseType_home } from '../../../../types/response';
+
 
 interface gallaryTypes {
     id: number;
@@ -17,6 +22,11 @@ interface gallaryTypes {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
+    const {resultI,loadingI,errorI}: responseType_info =  useInfo();
+    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const logo = resultH?.icon?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`
+    : '';
     const gallery_photo_data: gallaryTypes[] = [
         {
             id: 1,
@@ -50,32 +60,31 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
                     <i className='fas fa-window-close'></i>
                 </button>
             </div>
-            <div className="logo-side mb-30"> Logo
+            <div className="logo-side mb-30">
                 <Link href="/">
-                    <Image src={Logo} style={{ width: "auto", height: "auto" }} alt="image not found" />
+                    {/* Aseguramos que logo tenga valor antes de renderizar Image */}
+                    {logo && <Image src={logo} width={100}  height={100}  alt="Logo"/>}
                 </Link>
             </div>
             <div className="side-info mb-30">
                 <div className="contact-list mb-30">
-                    <h4>Office Address</h4>
+                    <h4>Dirección</h4>
                     <p>
-                        123/A, Miranda City Likaoli Prikano, Dope
+                        {resultI?.address}
                     </p>
                 </div>
                 <div className="contact-list mb-30">
-                    <h4>Phone Number</h4>
-                    <Link href="tel:+53684956245">+0989 7876 9865 9</Link>
+                    <h4>Telefono</h4>
+                    <Link href="tel:+53684956245">{resultI?.phone}</Link>
                     <br />
-                    <Link href="tel:+03644956245">+(090) 8765 86543 85</Link>
                 </div>
                 <div className="contact-list mb-30">
-                    <h4>Email Address</h4>
-                    <Link href="mailto:howdy@zomata.com" target='_blank'>howdy@zomata.com</Link>
+                    <h4>Correo electronico</h4>
+                    <Link href="mailto:howdy@zomata.com" target='_blank'>{resultI?.email}</Link>
                     <br />
-                    <Link href="example.mail@hum.com" target='_blank'>example.mail@hum.com</Link>
                 </div>
             </div>
-            <div className="instagram">
+            {/* <div className="instagram">
                 <PhotoProvider
                     speed={() => 800}
                     easing={(type) =>
@@ -96,7 +105,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
                     }
 
                 </PhotoProvider>
-            </div>
+            </div> */}
             <SocialIcon WrapperClass='social-icon-right mt-20' />
         </div>
     );

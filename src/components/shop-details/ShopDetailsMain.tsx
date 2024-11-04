@@ -50,7 +50,7 @@ const ShopDetailsMain = ({ id }: idType) => {
 
     return (
         <>
-            <Breadcrumb title='Shop Details' subTitle='Shop Details' />
+            <Breadcrumb title='Detalle de producto' subTitle='Detalle de producto' />
             {products && products.length > 0 ? (
                 products.map((item: Product) => (
                     <section className="shop-banner-area pt-120 pb-80" key={item.id}>

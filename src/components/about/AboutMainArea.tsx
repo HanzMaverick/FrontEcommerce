@@ -9,7 +9,7 @@ import BrandSection from '../Elements/brand/BrandSection';
 const AboutMainArea = () => {
     return (
         <>
-            <Breadcrumb title='About Us' subTitle='About Us' />
+            <Breadcrumb title='Sobre nosotros' subTitle='Sobre nosotros' />
             <AboutSectionFour />
             <FaqSection />
             <ServiceSectionTwo />

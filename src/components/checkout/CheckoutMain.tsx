@@ -15,7 +15,7 @@ const CheckoutMain = () => {
 
     return (
         <main>
-            <Breadcrumb title="My Checkout" subTitle="Checkout" />
+            <Breadcrumb title="Verificar" subTitle="Verificar" />
             <CouponArea />
             <section className="checkout-area pb-70">
                 <div className="container">
