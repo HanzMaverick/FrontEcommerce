@@ -266,6 +266,17 @@ export interface serviceType  {
   }[];
 }
 
+export interface serviceType2  {
+  id: number; 
+  Title: string;
+  description: string;
+  phrase: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+}
+
 export interface serviceImgType {
   id: number;
   Title: string;
