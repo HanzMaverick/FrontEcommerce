@@ -1,9 +1,10 @@
-"use client"
-import { productsType } from "@/interFace/interFace";
+// cartSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Product } from "@/interFace/interFace";
 import { toast } from "react-toastify";
+
 interface CartState {
-  cartProducts: productsType[];
+  cartProducts: Product[];
 }
 
 const initialState: CartState = {
@@ -14,53 +15,66 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    cart_product: (state, { payload }: PayloadAction<productsType>) => {
+    cart_product: (state, { payload }: PayloadAction<Product>) => {
       const productIndex = state.cartProducts.findIndex(
         (item) => item.id === payload.id
       );
+      
       if (productIndex >= 0) {
         state.cartProducts[productIndex].quantity! += 1;
-        toast.info("Increase Product Quantity", {
+        toast.info(`Increased quantity of ${payload.productName}`, {
           position: "top-left",
         });
       } else {
         const tempProduct = { ...payload, quantity: 1 };
         state.cartProducts.push(tempProduct);
-        toast.success(`${payload.title} added to cart`, {
+        toast.success(`${payload.productName} added to cart`, {
           position: "top-left",
         });
       }
     },
-    remove_cart_product: (state, { payload }: PayloadAction<productsType>) => {
+
+    decrease_quantity: (state, { payload }: PayloadAction<Product>) => {
+      const cartIndex = state.cartProducts.findIndex(
+        (item) => item.id === payload.id
+      );
+      
+      if (cartIndex >= 0) {
+        const totalCart = state.cartProducts[cartIndex].quantity ?? 0;
+        if (totalCart > 1) {
+          state.cartProducts[cartIndex].quantity = totalCart - 1;
+          toast.error(`Decreased quantity of ${payload.productName}`, {
+            position: "top-left",
+          });
+        } else {
+          state.cartProducts = state.cartProducts.filter(
+            (item) => item.id !== payload.id
+          );
+          toast.error(`${payload.productName} removed from cart`, {
+            position: "top-left",
+          });
+        }
+      }
+    },
+
+    remove_cart_product: (state, { payload }: PayloadAction<Product>) => {
       state.cartProducts = state.cartProducts.filter(
         (item) => item.id !== payload.id
       );
-      toast.error(`remove from your cart`, {
+      toast.error(`${payload.productName} removed from cart`, {
         position: "top-left",
       });
     },
 
     clear_cart: (state) => {
       const confirmMsg = window.confirm(
-        "Are you sure deleted your all cart items ?"
+        "Are you sure you want to remove all items from your cart?"
       );
       if (confirmMsg) {
         state.cartProducts = [];
-      }
-    },
-
-    decrease_quantity: (state, { payload }: PayloadAction<productsType>) => {
-      const cartIndex = state.cartProducts.findIndex(
-        (item) => item.id === payload.id
-      );
-      if (cartIndex >= 0) {
-      const totalCart = state.cartProducts[cartIndex].quantity ?? 0;
-        if(totalCart > 1){
-          state.cartProducts[cartIndex].quantity = totalCart - 1;
-          toast.error(`Decrease cart quantity`, {position: "top-left",});
-        }
-      } else{
-        toast.error(`Quantity cannot be less than 1`);
+        toast.error("Cart cleared", {
+          position: "top-left",
+        });
       }
     },
   },

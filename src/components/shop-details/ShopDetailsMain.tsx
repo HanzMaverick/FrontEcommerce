@@ -2,35 +2,45 @@
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import Link from 'next/link';
-import Product1 from '../../../public/assets/img/product/lg1.jpg';
-import Product2 from '../../../public/assets/img/product/lg2.jpg';
-import Product3 from '../../../public/assets/img/product/lg3.jpg';
 import Image from 'next/image';
 import { cart_product, decrease_quantity } from '@/redux/slices/cartSlice';
-import { idType, productsType } from '@/interFace/interFace';
-import { useDispatch } from "react-redux";
+import { idType } from '@/interFace/interFace';
+import { useDispatch, useSelector} from "react-redux";
 import products_data from '@/data/products-data';
 import { RootState } from '@/redux/store';
-import { useSelector } from 'react-redux';
-import ProductReview from './ProductReview';
-import BrandSection from '../Elements/brand/BrandSection';
-import { responseType } from '../../../types/response';
 import { useGetProducts } from '../../../api/getProduct';
 import { Product } from '@/interFace/interFace';
 
-const ShopDetailsMain = ({ id }: idType) => {
-    const { loading: productsLoading, result: products = [] } = useGetProducts(id);
-    const dispatch = useDispatch();
 
-    // Encuentra el producto en base al ID
-    const product = products_data.find((item) => item.id == id);
-    const cartProducts = useSelector((state: RootState) => state.cart.cartProducts);
-    const myData = cartProducts.find((item) => item.id === product?.id);
+const ShopDetailsMain = ({ id }: idType) => {
+    const dispatch = useDispatch();
+    const { loading: productsLoading, result: products = [] } = useGetProducts(id);
+    const cartProducts = useSelector((state: RootState) => state.cart.cartProducts); 
+
+    // Verifica el estado de carga
+    if (productsLoading) {
+        return <div>Loading...</div>; // Mensaje de carga
+    }
+
+    
+    if (!products || products.length === 0) {
+        return <div>No products available.</div>; 
+    }
+
+    
+    const productId = Number(id); 
+    const product = products.find((item: Product) => item.id === productId); 
+
+
+    if (!product) {
+        return <div>Product not found.</div>;
+    }
+
+    // Busca el producto en el carrito
+    const myData = cartProducts.find((item: Product) => item.id === (product as Product).id); 
 
     const handleAddToCart = () => {
-        if (product) {
-            dispatch(cart_product(product));
-        }
+        dispatch(cart_product(product)); 
     };
 
     const handleRemoveCart = () => {
@@ -41,22 +51,21 @@ const ShopDetailsMain = ({ id }: idType) => {
 
     return (
         <>
-            {products?.map((item: Product) => (
-                <>
-                    <Breadcrumb title='Shop Details' subTitle='Shop Details' />
-                    <section className="shop-banner-area pt-120 pb-80">
+            <Breadcrumb title='Shop Details' subTitle='Shop Details' />
+            {products && products.length > 0 ? (
+                products.map((item: Product) => (
+                    <section className="shop-banner-area pt-120 pb-80" key={item.id}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-xl-6 col-lg-6">
                                     <div>
-                                        {/* Manejo de imágenes */}
                                         <div className="product-details-img mb-20">
                                             <div className="tab-content" id="productDetailsTab">
                                                 {item.images?.map((img, index) => (
                                                     <div key={index} className={`tab-pane fade ${index === 0 ? 'active show' : ''}`} id={`pro-${index + 1}`} role="tabpanel" aria-labelledby={`pro-${index + 1}-tab`}>
                                                         <div className="product-large-img">
                                                             <Image
-                                                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${img.url}`}
+                                                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
                                                                 alt={item.productName}
                                                                 width={270}
                                                                 height={450}
@@ -67,8 +76,7 @@ const ShopDetailsMain = ({ id }: idType) => {
                                                 ))}
                                             </div>
                                         </div>
-
-                                        {/* Navegación de imágenes */}
+    
                                         <ul className="shop-thumb-tab mb-30" id="myTab" role="tablist">
                                             {item.images?.map((img, index) => (
                                                 <li key={index} className="nav-item" role="presentation">
@@ -88,7 +96,7 @@ const ShopDetailsMain = ({ id }: idType) => {
                                         </ul>
                                     </div>
                                 </div>
-
+    
                                 <div className="col-xl-6 col-lg-6">
                                     <div className="product-details mb-30">
                                         <div className="product-details-title">
@@ -134,10 +142,12 @@ const ShopDetailsMain = ({ id }: idType) => {
                             </div>
                         </div>
                     </section>
-                </>
-            ))}
+                ))
+            ) : (
+                <div>No products available.</div> // Mensaje si no hay productos
+            )}
         </>
     );
-};
+}
 
 export default ShopDetailsMain;

@@ -10,7 +10,6 @@ import Link from 'next/link';
 import products_data from '@/data/products-data';
 import { getRating } from "../../../hooks/ratings-hooks";
 import { useDispatch } from 'react-redux';
-import { productsType } from '@/interFace/interFace';
 import { cart_product } from '@/redux/slices/cartSlice';
 import { wishlist_product } from '@/redux/slices/wishlist-slice';
 import ProductModal from '@/components/common/ProductModel';
@@ -30,7 +29,7 @@ const ProductSection = () => {
     const [modaldata, setModalData] = useState<any>({});
     const dispatch = useDispatch();
 
-    const handleAddToCart = (product: productsType) => {
+    const handleAddToCart = (product: Product) => {
         dispatch(cart_product(product));
     };
 
@@ -121,7 +120,7 @@ const ProductSection = () => {
                                                 <div className="product-wrapper text-center mb-30">
                                                     <div className="product-img">
                                                         <Link href="/shop-details">
-                                                            <Image src={item.image} alt="product image" width={200} height={200} />
+                                                            <Image src={item.images[0].url} alt="product image" width={200} height={200} />
                                                         </Link>
 
                                                         <div className="product-action">
@@ -135,8 +134,8 @@ const ProductSection = () => {
                                                         </div>
                                                     </div>
                                                     <div className="product-text">
-                                                        <h4><Link href={`/shop-details/${item.id}`}>{item.title}</Link></h4>
-                                                        <div className="pro-rating">{getRating(item.rating)}</div>
+                                                        <h4><Link href={`/shop-details/${item.id}`}>{item.productName}</Link></h4>
+                                                        {/* <div className="pro-rating">{getRating(item.rating)}</div> */}
                                                         <div className="pro-price"><span>${item.price}</span></div>
                                                     </div>
                                                 </div>

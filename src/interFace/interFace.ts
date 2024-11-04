@@ -65,16 +65,25 @@ export interface teamType{
 
 
 // product type
+// Interfaz para productos destacados
 export interface productsType {
   id: number;
-  image: StaticImageData;
-  title: string;
+  productName: string; // Cambia 'title' por 'productName'
+  slug: string; // Agrega 'slug'
+  description: string; // Agrega 'description'
   price: number;
-  rating: number;
-  quantity:number;
-  category:any;
-  data?:any
+  quantity: number;
+  stock: number; // Agrega 'stock'
+  images: {
+    id: number;
+    url: string;
+  }[];
+  category: {
+    slug: string;
+    nameCategory: string;
+  };
 }
+
 //hero type
 export interface heroType{
 id:number;
@@ -157,6 +166,7 @@ export interface Product {
   slug: string;
   description: string;
   price: number;
+  quantity: number;
   stock: number;
   images: {
     id: number;

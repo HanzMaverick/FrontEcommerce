@@ -37,7 +37,7 @@ const OrderArea = () => {
                                         cartProducts.map((item) => (
                                             <tr key={item.id} className="cart_item">
                                                 <td className="product-name">
-                                                    {item.title} <strong className="product-quantity"> × {item.quantity}</strong>
+                                                    {item.productName} <strong className="product-quantity"> × {item.quantity}</strong>
                                                 </td>
                                                 <td className="product-total">
                                                     <span className="amount">{item.price ? `$${item.price}` : '$0'}</span>

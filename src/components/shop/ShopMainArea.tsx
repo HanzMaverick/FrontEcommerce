@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { cart_product } from '@/redux/slices/cartSlice';
-import { productsType } from '@/interFace/interFace';
+import { Product, productsType } from '@/interFace/interFace';
 import { wishlist_product } from '@/redux/slices/wishlist-slice';
 import { getRating } from '@/hooks/ratings-hooks';
 import ProductModal from '../common/ProductModel';
@@ -20,7 +20,7 @@ const ShopMainArea = () => {
     const [activeCategory, setActiveCategory] = useState<string>("Default By");
     const filterData = products_data.slice(4, 16).filter((item) => item.category == activeCategory);
     const dispatch = useDispatch();
-    const handleAddToCart = (product: productsType) => {
+    const handleAddToCart = (product: Product) => {
         dispatch(cart_product(product));
     };
 

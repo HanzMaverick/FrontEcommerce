@@ -1,26 +1,21 @@
-"use client"
+"use client";
 import React from "react";
 import Link from "next/link";
 import Breadcrumb from "../common/breadcrumb/Breadcrumb";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { cart_product, clear_cart, decrease_quantity, remove_cart_product } from "@/redux/slices/cartSlice";
 import { RootState } from "@/redux/store";
-import { useDispatch } from "react-redux";
 import Image from "next/image";
-import { productsType } from "@/interFace/interFace";
+import { Product } from "@/interFace/interFace";
 
 const CartMain = () => {
     const dispatch = useDispatch();
 
-
-    const handleRemoveCart = (product: productsType) => {
+    const handleRemoveCart = (product: Product) => {
         dispatch(remove_cart_product(product));
     };
 
-
-    const cartProducts = useSelector(
-        (state: RootState) => state.cart.cartProducts
-    );
+    const cartProducts = useSelector((state: RootState) => state.cart.cartProducts);
 
     const totalPrice = cartProducts.reduce((total, product) => {
         if (typeof product.price === 'number' && product.price !== 0) {
@@ -29,20 +24,17 @@ const CartMain = () => {
         return total;
     }, 0);
 
-
-    const handleChange = () => { };
     return (
         <main>
             <Breadcrumb title="My Cart" subTitle="Cart" />
 
-            {cartProducts.length === 0 && (
+            {cartProducts.length === 0 ? (
                 <div className="container">
                     <div className="empty-text pt-100 pb-60 text-center">
                         <h3>Your cart is empty</h3>
                     </div>
                 </div>
-            )}
-            {cartProducts.length >= 1 && (
+            ) : (
                 <section className="cart-area pt-100 pb-100">
                     <div className="container">
                         <div className="row">
@@ -60,58 +52,53 @@ const CartMain = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {cartProducts?.map((item: any, index) => {
-                                                const totalPrice = item.price * item.quantity
+                                            {cartProducts.map((item) => {
+                                                const totalPrice = item.price * item.quantity;
                                                 return (
-                                                    <tr key={index}>
+                                                    <tr key={item.id}>
                                                         <td className="product-thumbnail">
                                                             <Link href="/shop-details">
-                                                                <Image
-                                                                    src={item.image}
-                                                                    style={{ width: "auto", height: "auto" }}
-                                                                    alt="image not found"
-                                                                />
+                                                            <Image
+                                                                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
+                                                                alt={item.productName}
+                                                                width={150}
+                                                                height={150}
+                                                                className="product-image"
+                                                            />
                                                             </Link>
                                                         </td>
-                                                        <td className="product-name">
-                                                            {item?.title}
-                                                        </td>
+                                                        <td className="product-name">{item.productName}</td>
                                                         <td className="product-price">
-                                                            <span className="amount">{item?.price === 0 ? "FREE" : `$${item?.price}`} </span>
+                                                            <span className="amount">{item.price === 0 ? "FREE" : `$${item.price}`}</span>
                                                         </td>
                                                         <td className="product-quantity text-center">
                                                             <div className="product-quantity mt-10 mb-10">
-                                                                <div className="product-quantity">
-                                                                    <form
-                                                                        onSubmit={(e) => e.preventDefault()}
-                                                                        action="#"
+                                                                <form onSubmit={(e) => e.preventDefault()} action="#">
+                                                                    <button
+                                                                        onClick={() => item.quantity > 1 && dispatch(decrease_quantity(item))}
+                                                                        type="button"
+                                                                        className="cart-minus"
+                                                                        disabled={item.quantity <= 1}
                                                                     >
-                                                                        <button
-                                                                            onClick={() => dispatch(decrease_quantity(item))
-                                                                            }
-                                                                            type="button"
-                                                                            className="cart-minus"
-                                                                        >
-                                                                            <i className="far fa-minus"></i>
-                                                                        </button>
-                                                                        <input
-                                                                            className="cart-input"
-                                                                            onChange={handleChange}
-                                                                            value={item?.quantity}
-                                                                        />
-                                                                        <button
-                                                                            onClick={() => dispatch(cart_product(item))}
-                                                                            type="button"
-                                                                            className="cart-plus"
-                                                                        >
-                                                                            <i className="far fa-plus"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
+                                                                        <i className="far fa-minus"></i>
+                                                                    </button>
+                                                                    <input
+                                                                        className="cart-input"
+                                                                        value={item.quantity}
+                                                                        readOnly
+                                                                    />
+                                                                    <button
+                                                                        onClick={() => dispatch(cart_product(item))}
+                                                                        type="button"
+                                                                        className="cart-plus"
+                                                                    >
+                                                                        <i className="far fa-plus"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </td>
                                                         <td className="product-subtotal">
-                                                            <span className="amount">{totalPrice.toFixed(2) ? `$${totalPrice.toFixed(2)}` : 0}</span>
+                                                            <span className="amount">${totalPrice.toFixed(2)}</span>
                                                         </td>
                                                         <td className="product-remove">
                                                             <button className="remove-btn" onClick={() => handleRemoveCart(item)}>
@@ -119,10 +106,8 @@ const CartMain = () => {
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                )
-                                            }
-
-                                            )}
+                                                );
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
@@ -137,11 +122,7 @@ const CartMain = () => {
                                                     placeholder="Coupon code"
                                                     type="text"
                                                 />
-                                                <button
-                                                    className="fill-btn"
-                                                    name="apply_coupon"
-                                                    type="submit"
-                                                >
+                                                <button className="fill-btn" name="apply_coupon" type="submit">
                                                     Apply coupon
                                                 </button>
                                             </div>
