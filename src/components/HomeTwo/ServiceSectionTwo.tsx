@@ -18,29 +18,29 @@ const ServiceSectionTwo = () => {
         return <p>Loading...</p>;
     }
 
-    // Verifica que result y attributes estén definidos
-    if (!result || !result.attributes) {
-        return <p>No se encontraron datos</p>;
-    }
+    // // Verifica que result y attributes estén definidos
+    // if (!result || !result.attributes) {
+    //     return <p>No se encontraron datos</p>;
+    // }
 
     // Datos dinámicos de "Qué hacemos" basados en la API
     const service_data = [
         {
             id: 1,
-            title: result.attributes.What_We_Do_OneTitle,
-            desc: result.attributes.What_We_Do_OneDescription,
+            title: result.What_We_Do_OneTitle,
+            desc: result.What_We_Do_OneDescription,
             image: img4 // Ícono correspondiente
         },
         {
             id: 2,
-            title: result.attributes.What_We_Do_TwoTitle,
-            desc: result.attributes.What_We_Do_TwoDescription,
+            title: result.What_We_Do_TwoTitle,
+            desc: result.What_We_Do_TwoDescription,
             image: img5 // Ícono correspondiente
         },
         {
             id: 3,
-            title: result.attributes.What_We_Do_ThreeTitle,
-            desc: result.attributes.What_We_Do_ThreeDescription,
+            title: result.What_We_Do_ThreeTitle,
+            desc: result.What_We_Do_ThreeDescription,
             image: img6 // Ícono correspondiente
         }
     ];
@@ -56,7 +56,7 @@ const ServiceSectionTwo = () => {
                                     <Image src={shape} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                 </div>
                                 <h1>Qué hacemos</h1>
-                                <p>{result?.attributes.What_We_Do_Description}</p>
+                                <p>{result?.What_We_Do_Description}</p>
                             </div>
                         </div>
                     </div>
@@ -73,9 +73,9 @@ const ServiceSectionTwo = () => {
                                         <div className="we-do-text">
                                             <h4><Link href="/services">{item.title}</Link></h4>
                                             <p>{item.desc}</p>
-                                            <Link href="/services">
+                                            {/* <Link href="/services">
                                                 Read More <i className="dripicons-arrow-thin-right"></i>
-                                            </Link>
+                                            </Link> */}
                                         </div>
                                     </div>
                                 </div>
