@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { getRating } from "@/hooks/ratings-hooks";
 import { wishlist_product } from "@/redux/slices/wishlist-slice";
+import { useGetProducts } from "../../../api/getProduct";
 
 interface productDataType {
   id: number;

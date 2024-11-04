@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { cart_product, decrease_quantity } from '@/redux/slices/cartSlice';
 import { idType } from '@/interFace/interFace';
 import { useDispatch, useSelector} from "react-redux";
-import products_data from '@/data/products-data';
 import { RootState } from '@/redux/store';
 import { useGetProducts } from '../../../api/getProduct';
 import { Product } from '@/interFace/interFace';

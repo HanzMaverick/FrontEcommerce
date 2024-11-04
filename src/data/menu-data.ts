@@ -14,26 +14,22 @@ interface MenuItem {
       id: 1,
       hasDropdown: true,
       active: true,
-      title: "Home",
+      title: "Inicio",
       pluseIncon: true,
-      link: "#",
-      submenus: [
-        { title: "Home 1", link: "/" },
-        { title: "Home 2", link: "home-2" },
-        { title: "Home 3", link: "/home-3" },
-      ],
+      link: "/",
     },
     {
       id: 2,
       hasDropdown: false,
       active: true,
-      title: "About",
+      title: "Acerca de",
+      pluseIncon: true,
       link: "/about",
     },
     {
       id: 3,
       hasDropdown: true,
-      title: "Service",
+      title: "Servicio",
       link: "#",
       pluseIncon: true,
       submenus: [
@@ -45,66 +41,46 @@ interface MenuItem {
     {
       id: 4,
       hasDropdown: true,
-      title: "Shop",
+      title: "Comprar",
       link: "#",
       pluseIncon: true,
       submenus: [
-        { title: "Shop", link: "/shop" },
-        { title: "Shop Details", link: "/shop-details" },
-        { title: "Cart", link: "/cart" },
-        { title: "Wishlist", link: "/wishlist" },
-        { title: "Checkout", link: "/checkout" },
+        { title: "Productos", link: "/shop" },
+        { title: "Carrito de compras", link: "/cart" },
+        { title: "Lista de deseos", link: "/wishlist" },
+        { title: "Verificar", link: "/checkout" },
       ],
     },
-  
     {
       id: 5,
-      hasDropdown: true,
-      title: "Blog",
-      link: "#",
-      submenus: [
-        { title: "Blog", link: "/blog" },
-        { title: "Blog Details", link: "/blog-details" },
-      ],
-    },
-    {
-      id: 6,
-      title: "Pages",
+      title: "Política",
       link: "#",
       hasDropdown: true,
       submenus: [
-        { title: "Gallery 01", link: "/gallery-1" },
-        {
-          title: "Gallery 02",
-          link: "/gallery-2",
-        },
+        // { title: "Gallery 01", link: "/gallery-1" },
+        // {
+        //   title: "Gallery 02",
+        //   link: "/gallery-2",
+        // },
   
-        {
-          title: "Gallery 03",
-          link: "/gallery-3",
-        },
-        {
-          title: "Gallery Details 01",
-          link: "/gallery-details-1",
-        },
-        { title: "Gallery Details 02", link: "/gallery-details-2" },
-        { title: "Gallery Details 03", link: "/gallery-details-3" },
-        {
-          title: "Gallery Details 04",
-          link: "/gallery-details-4",
-        },
-        {
-          title: "Team",
-          link: "/team",
-        },
-        {
-          title: "Team Details",
-          link: "/team-details",
-        },
-        {
-          title: "Terms & Condition",
-          link: "/terms-condition",
-        },
+        // {
+        //   title: "Gallery 03",
+        //   link: "/gallery-3",
+        // },
+        // {
+        //   title: "Gallery Details 01",
+        //   link: "/gallery-details-1",
+        // },
+        // { title: "Gallery Details 02", link: "/gallery-details-2" },
+        // { title: "Gallery Details 03", link: "/gallery-details-3" },
+        // {
+        //   title: "Gallery Details 04",
+        //   link: "/gallery-details-4",
+        // },
+        // {
+        //   title: "Terms & Condition",
+        //   link: "/terms-condition",
+        // },
         {
           title: "Privacy Policy",
           link: "/privacy-policy",
@@ -113,25 +89,25 @@ interface MenuItem {
           title: "Faq",
           link: "/faq",
         },
-        {
-          title: "SignIn",
-          link: "/signIn",
-        },
-        {
-          title: "Sign Up",
-          link: "/signUp",
-        },
-        {
-          title: "404 Error",
-          link: "/error",
-        },
+        // {
+        //   title: "SignIn",
+        //   link: "/signIn",
+        // },
+        // {
+        //   title: "Sign Up",
+        //   link: "/signUp",
+        // },
+        // {
+        //   title: "404 Error",
+        //   link: "/error",
+        // },
       ],
     },
     {
-        id: 7,
+        id: 6,
         hasDropdown: false,
         active: true,
-        title: "Contact",
+        title: "Contacto",
         link: "/contact",
       },
   ];

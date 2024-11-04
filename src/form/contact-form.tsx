@@ -5,9 +5,9 @@ import { useFormik } from 'formik';
 import { contact_schema } from '@/utils/validation-schema';
 import { toast } from 'react-toastify';
 import ErrorMsgTwo from './error-msg-two';
+import { useInfo } from '../../api/getInfo';
 
 const ContactForm = () => {
-    // use formik
     const { handleChange, handleSubmit, handleBlur, errors, values, touched } =
         useFormik({
             initialValues: {
@@ -18,7 +18,7 @@ const ContactForm = () => {
             },
             validationSchema: contact_schema,
             onSubmit: (values, { resetForm }) => {
-                toast.success("Contact Successful")
+                toast.success("Contacto exitoso")
                 resetForm();
             },
         });
@@ -31,7 +31,7 @@ const ContactForm = () => {
                     <div className="row">
                         <div className="col-xl-12">
                             <div className="contact-title text-center mb-35">
-                                <h1>Leave a Message</h1>
+                                <h1>Dejar un mensaje</h1>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ const ContactForm = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 type="text"
-                                                placeholder="Name :"
+                                                placeholder="Nombre :"
                                                 id="name"
                                                 required
                                             />
@@ -61,7 +61,7 @@ const ContactForm = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 type="email"
-                                                placeholder="Email :"
+                                                placeholder="Correo electrónico :"
                                                 id="email"
                                                 required
                                             />
@@ -75,7 +75,7 @@ const ContactForm = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 type="text"
-                                                placeholder="Website :"
+                                                placeholder="Sitio web :"
                                                 id="website"
                                             />
                                         </div>
@@ -86,14 +86,14 @@ const ContactForm = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 id="massage"
-                                                placeholder="Write your comments :"
+                                                placeholder="Escribe tus comentarios :"
                                             ></textarea>
                                             {touched.massage && <ErrorMsgTwo error={errors.massage} />}
                                         </div>
 
                                         <div className="col-xl-12 col-lg-12">
                                             <div className="contact-button text-center">
-                                                <button className="btn" type="submit">Send Message</button>
+                                                <button className="btn" type="submit">Enviar mensaje</button>
                                             </div>
                                         </div>
                                     </div>

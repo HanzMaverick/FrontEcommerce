@@ -1,19 +1,88 @@
+"use client"
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import Link from 'next/link';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const PolicyPrivacyMain = () => {
+    const generatePDF = async () => {
+        const doc = new jsPDF();
+        let totalHeight = 0;
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const margin = 10; // margin in mm
+
+        // Function to make all content visible temporarily
+        const showAllContent = () => {
+            const allPanes = document.querySelectorAll('.tab-pane');
+            allPanes.forEach(pane => {
+                pane.classList.add('show', 'active');
+            });
+        };
+
+        // Function to restore original visibility
+        const restoreVisibility = () => {
+            const allPanes = document.querySelectorAll('.tab-pane');
+            allPanes.forEach(pane => {
+                if (!pane.classList.contains('original-active')) {
+                    pane.classList.remove('show', 'active');
+                }
+            });
+        };
+
+        try {
+            // Save original state
+            const originalActivePane = document.querySelector('.tab-pane.show.active');
+            originalActivePane?.classList.add('original-active');
+
+            // Make all content visible
+            showAllContent();
+
+            // Get all sections
+            const sections = ['tab_privacy_policy', 'tab_terms_conditions', 'tab_return_policy'];
+            
+            for (let i = 0; i < sections.length; i++) {
+                const content = document.getElementById(sections[i]);
+                
+                if (content) {
+                    const canvas = await html2canvas(content);
+                    const imgData = canvas.toDataURL('image/png');
+                    
+                    // Calculate heights
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Add new page if it's not the first section
+                    if (i > 0) {
+                        doc.addPage();
+                    }
+                    
+                    // Add content
+                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                }
+            }
+
+            // Restore original visibility state
+            restoreVisibility();
+            originalActivePane?.classList.remove('original-active');
+
+            // Save the PDF
+            doc.save('politica.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            // Restore visibility even if there's an error
+            restoreVisibility();
+        }
+    };
+
     return (
         <>
-            <Breadcrumb title='Policy & Privacy' subTitle='Policy & Privacy' />
+            <Breadcrumb title="Política y Privacidad" subTitle="Política y Privacidad" />
             <section className="terms_conditions_section section_space_lg pt-120 pb-60">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">
-                            <ul
-                                className="nav tabs_nav_boxed unordered_list_block mb-60"
-                                role="tablist"
-                            >
+                            <ul className="nav tabs_nav_boxed unordered_list_block mb-60" role="tablist">
                                 <li role="presentation">
                                     <button
                                         className="active"
@@ -21,10 +90,10 @@ const PolicyPrivacyMain = () => {
                                         data-bs-target="#tab_privacy_policy"
                                         type="button"
                                         role="tab"
-                                        aria-selected={false}
+                                        aria-selected="true"
                                     >
                                         <i className="fas fa-circle"></i>
-                                        <span>Privacy & Policy</span>
+                                        <span>Política de privacidad</span>
                                     </button>
                                 </li>
                                 <li role="presentation">
@@ -33,250 +102,147 @@ const PolicyPrivacyMain = () => {
                                         data-bs-target="#tab_terms_conditions"
                                         type="button"
                                         role="tab"
-                                        aria-selected={true}
+                                        aria-selected="false"
                                     >
                                         <i className="fas fa-circle"></i>
-                                        <span>Terms & Conditions</span>
+                                        <span>Términos y condiciones</span>
+                                    </button>
+                                </li>
+                                <li role="presentation">
+                                    <button
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#tab_return_policy"
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                    >
+                                        <i className="fas fa-circle"></i>
+                                        <span>Política de devoluciones</span>
                                     </button>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-lg-9">
                             <div className="tab-content mb-60">
-                                <div
-                                    className="tab-pane fade show active"
-                                    id="tab_privacy_policy"
-                                    role="tabpanel"
-                                >
+                                {/* Política de Privacidad */}
+                                <div className="tab-pane fade show active" id="tab_privacy_policy" role="tabpanel">
                                     <div className="terms_conditions_content">
-                                        <h3 className="warpper_title">Privacy Policy Agreement</h3>
+                                        <h3 className="warpper_title">Acuerdo de Política de Privacidad</h3>
                                         <p>
-                                            Companies or websites that handle customer information are
-                                            required by law and third parties to publish their Privacy
-                                            Policies on their business websites. If you own a website,
-                                            web app, mobile app or that collects or processes user
-                                            data, you most certainly will have to post a Privacy
-                                            Policy on your website (or give in-app access to the full
-                                            Privacy Policy agreement).
+                                            En nuestra empresa, tu privacidad es de suma importancia. Queremos garantizar que sepas exactamente cómo y por qué recopilamos, usamos, y protegemos tu información personal. Esta política es integral y está diseñada para responder a cualquier inquietud que puedas tener sobre el manejo de tus datos.
                                         </p>
-                                        <h4 className="info_title">
-                                            Here are some of the main reasons:
-                                        </h4>
+                                        <h4 className="info_title">¿Qué datos recopilamos y cómo se usan?</h4>
+                                        <p>
+                                            Recopilamos varios tipos de datos para mejorar la experiencia del usuario y optimizar nuestros servicios. Esto incluye información que proporcionas directamente, como tu nombre, correo electrónico, y detalles de contacto, así como datos recopilados automáticamente, como tu dirección IP y el historial de navegación.
+                                        </p>
                                         <ul className="icon_list unordered_list_block">
                                             <li>
                                                 <span className="list_item_text">
-                                                    <strong>1. Responsive Design</strong>: Ensures a
-                                                    seamless experience across various devices.
+                                                    <strong>Datos personales:</strong> Se utilizan para procesar transacciones, brindar soporte al cliente y enviar comunicaciones importantes.
                                                 </span>
                                             </li>
                                             <li>
                                                 <span className="list_item_text">
-                                                    <strong>3.Zomata Template</strong>: Zomata is a powerful Organic Food React Next.js Template.
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_text">
-                                                    <strong>5. Modern Technologies</strong>: Benefits of
-                                                    React, Next.js, and TypeScript..
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_text">
-                                                    {`Let's`} take a look at each of these reasons in more
-                                                    depth.
+                                                    <strong>Datos técnicos:</strong> Nos ayudan a mejorar el rendimiento de nuestro sitio web y a diagnosticar problemas técnicos.
                                                 </span>
                                             </li>
                                         </ul>
-
-                                        <h4 className="info_title">What we collect</h4>
+                                        <h4 className="info_title">¿Cómo protegemos tu información?</h4>
                                         <p>
-                                            As a provider of the Sasup – Sass Landing React, Nextjs
-                                            Template you may collect and{" "}
-                                            <Link className="link" href="/faq">
-                                                Google require website
-                                            </Link>{" "}
-                                            certain information from users who interact with your
-                                            platform. The specific types of information you collect
-                                            can vary based on the features and functionalities of your
-                                            template. However, here are some common types of
-                                            information that might be collected:
+                                            Implementamos una variedad de medidas de seguridad avanzadas, como el cifrado SSL, para proteger tu información personal. Solo empleados autorizados tienen acceso a esta información y están obligados a mantener su confidencialidad.
                                         </p>
+                                        <h4 className="info_title">Compartir datos con terceros</h4>
                                         <p>
-                                            Some of the most popular third party services require
-                                            website and app owners to post Privacy Policy agreements
-                                            on their websites. Some of these services include:
+                                            Nunca vendemos ni alquilamos tu información a terceros. Solo compartimos datos con socios de confianza que nos ayudan a operar nuestro sitio web y a ofrecer nuestros servicios, y siempre bajo estrictos acuerdos de confidencialidad.
                                         </p>
-
-                                        <h4 className="info_title">
-                                            Questions, comments, or report of incidents
-                                        </h4>
-                                        <p className="mb-1">
-                                            You may direct questions, comments or reports to:
-                                        </p>
+                                        <h4 className="info_title">Tus derechos</h4>
                                         <p>
-                                            <Link
-                                                className="author_mail"
-                                                href="mailto:howdy@zomata.com"
-                                            >
-                                                howdy@zomata.com
-                                            </Link>
-                                        </p>
-                                        <h4 className="info_title">
-                                            Revisions to this privacy policy without notice
-                                        </h4>
-                                        <p className="mb-0">
-                                            This Privacy Policy is dynamic. It will continually
-                                            change. You may not assume that it remains the same and
-                                            you agree to check the policy each time you visit the site
-                                            for changes. Unless, in the sole opinion of the website,
-                                            this policy changes so drastically as to suggest a posted
-                                            notification on the site or via email, you will receive no
-                                            notification of changes to this Privacy Policy nor, under
-                                            any circumstances, does this site promise notification.
-                                            Your continued use of this site always evidences your
-                                            acceptance of the terms this Privacy Policy or any
-                                            modifications.
+                                            Tienes derecho a solicitar el acceso a tu información personal, corregirla si es inexacta, o eliminarla si ya no es necesaria para los fines para los que fue recopilada. Si deseas ejercer estos derechos, contáctanos directamente.
                                         </p>
                                     </div>
                                 </div>
-                                <div
-                                    className="tab-pane fade"
-                                    id="tab_terms_conditions"
-                                    role="tabpanel"
-                                >
+
+                                {/* Términos y Condiciones */}
+                                <div className="tab-pane fade" id="tab_terms_conditions" role="tabpanel">
                                     <div className="terms_conditions_content">
-                                        <h3 className="warpper_title">
-                                            Terms and Conditions Agreement
-                                        </h3>
+                                        <h3 className="warpper_title">Acuerdo de Términos y Condiciones</h3>
                                         <p>
-                                            A terms and conditions agreement outlines the website
-                                            administrator’s rules regarding user behaviour and
-                                            provides information about the actions the website
-                                            administrator can and will perform. Essentially, your
-                                            terms and conditions text is a{" "}
-                                            <Link className="link" href="/contact">
-                                                contract between your website and its users
-                                            </Link>
-                                            . In the event of a legal dispute, arbitrators will look
-                                            at it to determine whether each party acted within their
-                                            rights.
+                                            Bienvenido a nuestra plataforma. Al acceder y usar nuestro sitio web, aceptas cumplir con estos términos y condiciones. Hemos diseñado estas directrices para asegurar una experiencia segura y justa para todos.
                                         </p>
+                                        <h4 className="info_title">Uso del sitio web</h4>
                                         <p>
-                                            Condition is not a new concept. Humans have always desired
-                                            privacy in their social as well as private lives. But the
-                                            idea of privacy as a human right is a relatively modern
-                                            phenomenon.
+                                            Se espera que uses nuestro sitio de manera responsable y ética. Está prohibido realizar cualquier actividad que pueda comprometer la seguridad del sitio o infringir los derechos de otros usuarios.
                                         </p>
-                                        <h4 className="info_title">
-                                            Here are some of the main reasons:
-                                        </h4>
-                                        <ul className="icon_list unordered_list_block">
-                                            <li>
-                                                <span className="list_item_icon">
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                                <span className="list_item_text">
-                                                    <strong>Abusive users</strong>: Terms and Conditions
-                                                    agreements allow you to establish what constitutes
-                                                    appropriate activity on your site or app, empowering
-                                                    you to remove abusive users and content
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_icon">
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                                <span className="list_item_text">
-                                                    <strong>Intellectual property theft</strong>:
-                                                    Asserting your claim to the creative assets of your
-                                                    site in your terms and conditions will prevent
-                                                    ownership disputes and copyright infringement.
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_icon">
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                                <span className="list_item_text">
-                                                    <strong>Potential litigation:</strong> If a user
-                                                    lodges a legal complaint against your business,
-                                                    showing that they were presented with clear terms and
-                                                    conditions before they used your site will help you
-                                                    immensely in court.
-                                                </span>
-                                            </li>
-                                        </ul>
-                                        <h4 className="info_title">To Set Liabilities Limits</h4>
-                                        <p>
-                                            Almost every terms and conditions agreement has a warranty
-                                            or limitations of liability disclaimer. We’ll cover it in
-                                            more detail in our section about{" "}
-                                            <Link className="link" href="/policy-privacy">
-                                                what clauses to include in your terms and conditions
-                                            </Link>
-                                            , but this clause essentially limits what customers can
-                                            hold you liable for.
-                                        </p>
-
-                                        <h4 className="info_title">
-                                            Most companies restrict liability for:
-                                        </h4>
                                         <ul className="icon_list unordered_list_block">
                                             <li>
                                                 <span className="list_item_text">
-                                                    1. Inaccuracies and errors
+                                                    <strong>Comportamiento prohibido:</strong> Esto incluye cualquier intento de hackear el sitio, cargar contenido malicioso o usar la plataforma con fines fraudulentos.
                                                 </span>
                                             </li>
                                             <li>
                                                 <span className="list_item_text">
-                                                    2. Lack of enjoyment
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_text">
-                                                    3. Product or website downtime
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span className="list_item_text">
-                                                    4. Viruses, spyware, and product damage
+                                                    <strong>Derechos de propiedad:</strong> Todos los elementos del sitio web, incluyendo imágenes, logotipos, y textos, están protegidos por derechos de autor y no pueden ser reutilizados sin permiso.
                                                 </span>
                                             </li>
                                         </ul>
+                                        <h4 className="info_title">Actualizaciones de términos</h4>
+                                        <p>
+                                            Nos reservamos el derecho de actualizar estos términos periódicamente. Se te notificará sobre cualquier cambio importante, pero es tu responsabilidad revisar esta página con regularidad.
+                                        </p>
+                                    </div>
+                                </div>
 
-                                        <h4 className="info_title">
-                                            To Outline Policies and Avoid Abusive Behavior
-                                        </h4>
-                                        <p className="mb-1">
-                                            You may direct questions, comments or reports to:
+                                {/* Política de Devoluciones */}
+                                <div className="tab-pane fade" id="tab_return_policy" role="tabpanel">
+                                    <div className="terms_conditions_content">
+                                        <h3 className="warpper_title">Política de Devoluciones</h3>
+                                        <p>
+                                            Queremos que te sientas completamente satisfecho con tu compra. Si no estás satisfecho con un producto o si llega dañado o defectuoso, puedes devolverlo bajo las siguientes condiciones.
+                                        </p>
+                                        <h4 className="info_title">Condiciones para realizar devoluciones</h4>
+                                        <p>
+                                            Aceptamos devoluciones dentro de los 30 días posteriores a la entrega del producto, siempre que se cumplan los siguientes criterios:
+                                        </p>
+                                        <ul className="icon_list unordered_list_block">
+                                            <li>
+                                                <span className="list_item_text">
+                                                    <strong>Estado original:</strong> El artículo debe estar sin usar y en su empaque original.
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span className="list_item_text">
+                                                    <strong>Documentación requerida:</strong> Incluye el recibo de compra o una prueba de transacción.
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span className="list_item_text">
+                                                    <strong>Excepciones:</strong> Algunos artículos, como productos personalizados o alimentos perecederos, no son elegibles para devolución.
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <h4 className="info_title">Proceso para realizar una devolución</h4>
+                                        <p>
+                                            Para iniciar el proceso, contáctanos a través de nuestro servicio de atención al cliente. Se te proporcionará un número de autorización de devolución junto con instrucciones detalladas.
                                         </p>
                                         <p>
-                                            <Link
-                                                className="author_mail"
-                                                href="mailto:howdy@Zomata.com"
-                                            >
-                                                howdy@zomata.com
-                                            </Link>
+                                            <strong>Gastos de devolución:</strong> Los gastos de envío para la devolución son responsabilidad del cliente, salvo que el producto sea defectuoso o incorrecto.
                                         </p>
-                                        <h4 className="info_title">
-                                            Revisions to this Teams & Condition without Notice
-                                        </h4>
-                                        <p className="mb-0">
-                                            This Privacy Policy is dynamic. It will continually
-                                            change. You may not assume that it remains the same and
-                                            you agree to check the policy each time you visit the site
-                                            for changes. Unless, in the sole opinion of the website,
-                                            this policy changes so drastically as to suggest a posted
-                                            notification on the site or via email, you will receive no
-                                            notification of changes to this Privacy Policy nor, under
-                                            any circumstances, does this site promise notification.
-                                            Your continued use of this site always evidences your
-                                            acceptance of the terms this Privacy Policy or any
-                                            modifications.
+                                        <h4 className="info_title">Reembolsos</h4>
+                                        <p>
+                                            Una vez que hayamos recibido y procesado tu devolución, te notificaremos el estado de tu reembolso. Si es aprobado, el reembolso se realizará a tu método de pago original dentro de 7-10 días hábiles.
+                                        </p>
+                                        <p>
+                                            Para más detalles, contáctanos en:
+                                            <Link className="author_mail" href="mailto:howdy@zomata.com">
+                                                whack@gmail.com
+                                            </Link>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            <button className="btn btn-primary mt-3" onClick={generatePDF}>
+                                Descargar Términos y Política
+                            </button>
                         </div>
                     </div>
                 </div>

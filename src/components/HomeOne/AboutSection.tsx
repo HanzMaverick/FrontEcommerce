@@ -49,7 +49,7 @@ const AboutSection = () => {
                             <span>{result?.phrase}</span>
                             <p>{result?.About_Us}</p>
                             <Link href="/about" className="btn">
-                                Learn More
+                                Más información
                             </Link>
                         </div>
                     </div>

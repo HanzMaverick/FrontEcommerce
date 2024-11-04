@@ -180,7 +180,7 @@ const ProductSection = () => {
                                             ))}
 
                                             <div className="features-text">
-                                            <Link href="/products">
+                                            <Link href="/shop">
                                                 Leer más <i className="dripicons-arrow-thin-right"></i>
                                             </Link>
                                         </div>
