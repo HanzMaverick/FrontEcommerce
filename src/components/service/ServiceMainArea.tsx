@@ -13,10 +13,8 @@ const ServiceMainArea = () => {
             <Breadcrumb title='Nuestros servicios' subTitle='Nuestros servicios' />
             <SpStyleOne />
             <ServiceSectionFour />
-            <ServiceVideoSection />
+            {/* <ServiceVideoSection /> */}
             <ServiceAboutSection />
-            <PricingSection />
-            <BrandSection />
         </>
     );
 };

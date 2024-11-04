@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import ServiceContent from './ServiceContent';
 import DetailsImg from '../../../public/assets/img/service/service-details/1.jpg';
 import DetailsImg2 from '../../../public/assets/img/service/service-details/6.jpg';
-import DetailsImg3 from '../../../public/assets/img/service/service-details/2.jpg';
-import DetailsImg4 from '../../../public/assets/img/service/service-details/3.jpg';
+import { useGetServicesID } from '../../../api/getServiceID';
+import { serviceType } from '@/interFace/interFace';
 
 const ServiceDetailsContent = ({ serviceData }: any) => {
     return (
@@ -39,7 +38,7 @@ const ServiceDetailsContent = ({ serviceData }: any) => {
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam voluptatem
                     quia. </p>
             </div>
-            <div className="services-details-text mb-35">
+            {/* <div className="services-details-text mb-35">
                 <h1>Why Needs Organic Food For Health</h1>
                 <p>No one rejects dislikes or avoids pleasure itself because it is pleasure but
                     because those who do not know how to pursue pleasure rationally encounter
@@ -69,7 +68,7 @@ const ServiceDetailsContent = ({ serviceData }: any) => {
                     is there anyone who loves or pursues or desires to obtain pain of itself,
                     because it is pain, but because occasionally circumstances occur in which toil
                     and pain can procure him some </p>
-            </div>
+            </div> */}
         </div>
     );
 };

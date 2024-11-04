@@ -24,7 +24,7 @@ const ServiceDetailsMain = ({ id }: idType) => {
                             <div className="services-sidebar mb-60"
                                 style={{ backgroundImage: `url(${serviceBg.src})` }}>
                                 <div className="services-title">
-                                    <h1>Services</h1>
+                                    <h1>Servicios</h1>
                                     <div className="servicest-t-img">
                                         <Image src={serviceShape} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                     </div>
@@ -44,13 +44,6 @@ const ServiceDetailsMain = ({ id }: idType) => {
                                     <li><Link href="#"><i className="far fa-file-word"></i>Wordfile.doc</Link></li>
                                 </ul>
                             </div>
-                            <div className="services-sidebar servicess-sidebar p-0">
-                                <div className="services-banner">
-                                    <Link href="#">
-                                        <Image src={bannerImage} style={{ width: "100%", height: "auto" }} alt="image not found" />
-                                    </Link>
-                                </div>
-                            </div>
                         </div>
                         <div className="col-xl-8 col-lg-8 mb-30">
                             <ServiceDetailsContent serviceData={serviceData} />
@@ -58,8 +51,6 @@ const ServiceDetailsMain = ({ id }: idType) => {
                     </div>
                 </div>
             </div>
-            <PricingSection />
-            <BrandSection />
         </>
     );
 };

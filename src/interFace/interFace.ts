@@ -256,3 +256,26 @@ export interface Experience {
     Title: string;
 }
 
+export interface serviceType  {
+  id: number; 
+  Title: string;
+  description: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+}
+
+export interface serviceImgType {
+  id: number;
+  Title: string;
+  description: string;
+  start: {
+    id: number;
+    url: string;
+  };
+  imagen2: {
+    id: number;
+    url: string;
+  };
+}
