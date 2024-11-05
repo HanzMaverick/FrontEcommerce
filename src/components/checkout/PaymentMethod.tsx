@@ -42,7 +42,7 @@ const PaymentMethod = () => {
                     </div>
                 </div>
                 <div className="order-button-payment mt-20">
-                    <button type="submit" className="btn">Place order</button>
+                    <button type="submit" className="btn">Realizar pedido</button>
                 </div>
             </div>
         </>
